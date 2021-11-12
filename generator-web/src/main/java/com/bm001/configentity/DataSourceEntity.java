@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.generator.config.querys.AbstractDbQuery;
 import com.baomidou.mybatisplus.generator.config.rules.DbColumnType;
 import com.baomidou.mybatisplus.generator.keywords.MySqlKeyWordsHandler;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 /**
  * @author: cfn
@@ -14,6 +15,7 @@ import lombok.Data;
  * @description: 数据库配置
  */
 @Data
+@Accessors(chain = true)
 public class DataSourceEntity {
 
 	/**

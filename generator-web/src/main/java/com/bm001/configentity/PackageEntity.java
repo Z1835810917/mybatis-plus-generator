@@ -1,21 +1,21 @@
 package com.bm001.configentity;
 
+import com.baomidou.mybatisplus.generator.config.OutputFile;
+import com.baomidou.mybatisplus.generator.config.PackageConfig;
+import lombok.Data;
+import lombok.experimental.Accessors;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author: cfn
  * @date: 2021/11/12 11:53
  * @description:
  */
-
-import com.baomidou.mybatisplus.generator.config.OutputFile;
-import com.baomidou.mybatisplus.generator.config.PackageConfig;
-import lombok.Data;
-import org.apache.commons.lang3.StringUtils;
-
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
 @Data
+@Accessors(chain = true)
 public class PackageEntity {
 
 	private String parentName;
@@ -32,23 +32,12 @@ public class PackageEntity {
 
 	private String controllerName;
 
-
-	private String entityUrl;
-
-	private String serviceUrl;
-
-	private String serviceImplUrl;
-
-	private String mapperXmlUrl;
-
-	private String controllerUrl;
-
 	/**
 	 * 构建包配置
 	 *
 	 * @return
 	 */
-	private PackageConfig getPageConfig() {
+	private PackageConfig getPageConfig(packageInfo packageInfo) {
 		//封装包配置路径
 		PackageConfig.Builder packageConfig = new PackageConfig.Builder()
 				.parent(StringUtils.isNotBlank(this.getParentName()) ? this.getParentName() : "com.bm001")
@@ -64,23 +53,46 @@ public class PackageEntity {
 		}
 		//输出各个文见路径
 		Map<OutputFile, String> map = new HashMap<>(6);
-		if (StringUtils.isNotBlank(this.getEntityUrl())) {
-			map.put(OutputFile.entity, this.getEntityUrl());
-		}
-		if (StringUtils.isNotBlank(this.getServiceUrl())) {
-			map.put(OutputFile.service, this.getServiceUrl());
-		}
-		if (StringUtils.isNotBlank(this.getServiceImplUrl())) {
-			map.put(OutputFile.serviceImpl, this.getServiceImplUrl());
-		}
-		if (StringUtils.isNotBlank(this.getMapperXmlUrl())) {
-			map.put(OutputFile.mapperXml, this.getMapperXmlUrl());
-		}
-		if (StringUtils.isNotBlank(this.getControllerUrl())) {
-			map.put(OutputFile.controller, this.getControllerUrl());
-		}
+		map.put(OutputFile.entity, packageInfo.getEntityUrl());
+		map.put(OutputFile.service, packageInfo.getServiceUrl());
+		map.put(OutputFile.serviceImpl, packageInfo.getServiceImplUrl());
+		map.put(OutputFile.mapperXml, packageInfo.getMapperXmlUrl());
+		map.put(OutputFile.controller, packageInfo.getControllerUrl());
 		packageConfig.pathInfo(map);
 		return packageConfig.build();
 	}
 
+	/**
+	 * 各个包路径
+	 */
+	@Data
+	@Accessors(chain = true)
+	public class packageInfo {
+
+		/**
+		 * 实体类
+		 */
+		private String entityUrl;
+
+		/**
+		 * service路径
+		 */
+		private String serviceUrl;
+
+		/**
+		 * serviceImpl路径
+		 */
+		private String serviceImplUrl;
+
+		/**
+		 * xml路径
+		 */
+		private String mapperXmlUrl;
+
+		/**
+		 * controller路径
+		 */
+		private String controllerUrl;
+
+	}
 }
