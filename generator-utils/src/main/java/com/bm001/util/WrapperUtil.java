@@ -19,10 +19,6 @@ import org.springframework.util.StringUtils;
 
 public class WrapperUtil {
 
-    public static final String DESC = "DESC";
-
-    public static final String ASC = "ASC";
-
     private static Pattern humpPattern = Pattern.compile("[A-Z]");
 
     public static <T> QueryWrapper<T> entityToWrapper(Object condition, Class<T> t) throws Exception {
@@ -94,6 +90,7 @@ public class WrapperUtil {
         chars[0] += 32;
         return String.valueOf(chars);
     }
+
     /**
      * 方法描述 驼峰转下划线
      * @param: [str]
