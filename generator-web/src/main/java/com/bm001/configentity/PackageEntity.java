@@ -37,7 +37,7 @@ public class PackageEntity {
 	 *
 	 * @return
 	 */
-	private PackageConfig getPageConfig(packageInfo packageInfo) {
+	public PackageConfig getPageConfig(PackageInfo packageInfo) {
 		//封装包配置路径
 		PackageConfig.Builder packageConfig = new PackageConfig.Builder()
 				.parent(StringUtils.isNotBlank(this.getParentName()) ? this.getParentName() : "com.bm001")
@@ -56,6 +56,7 @@ public class PackageEntity {
 		map.put(OutputFile.entity, packageInfo.getEntityUrl());
 		map.put(OutputFile.service, packageInfo.getServiceUrl());
 		map.put(OutputFile.serviceImpl, packageInfo.getServiceImplUrl());
+		map.put(OutputFile.mapper, packageInfo.getMapperUrl());
 		map.put(OutputFile.mapperXml, packageInfo.getMapperXmlUrl());
 		map.put(OutputFile.controller, packageInfo.getControllerUrl());
 		packageConfig.pathInfo(map);
@@ -67,7 +68,7 @@ public class PackageEntity {
 	 */
 	@Data
 	@Accessors(chain = true)
-	public class packageInfo {
+	public static class PackageInfo {
 
 		/**
 		 * 实体类
@@ -84,6 +85,10 @@ public class PackageEntity {
 		 */
 		private String serviceImplUrl;
 
+		/**
+		 * mapper
+		 */
+		private String mapperUrl;
 		/**
 		 * xml路径
 		 */

@@ -11,6 +11,10 @@
     <artifactId>generator-web</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>com.bm001</groupId>
+            <artifactId>generator-utils</artifactId>
+        </dependency>
         <!--mvc依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -52,13 +52,14 @@ public class GlobalEntity {
 	 *
 	 * @return
 	 */
-	private GlobalConfig getGolbalConfig() throws Exception {
+	public GlobalConfig getGolbalConfig() throws Exception {
 		String outputDir = this.getOutputDir();
 		if (StringUtils.isBlank(outputDir)) {
 			throw new Exception("输出目录不能为空");
 		}
 		GlobalConfig.Builder builder = new GlobalConfig.Builder()
 				.outputDir(outputDir)
+				.disableOpenDir()
 				.author(StringUtils.isBlank(this.getAuthor()) ? this.getAuthor() : "user")
 				.enableSwagger()
 				.dateType(this.getDateType())

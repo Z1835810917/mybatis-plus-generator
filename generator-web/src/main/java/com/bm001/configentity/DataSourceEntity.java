@@ -43,7 +43,7 @@ public class DataSourceEntity {
 	 *
 	 * @return
 	 */
-	private DataSourceConfig getDataConfig(AbstractDbQuery abstractDbQuery) {
+	public DataSourceConfig getDataConfig(AbstractDbQuery abstractDbQuery) {
 		return new DataSourceConfig.Builder(this.getDataUrl(), this.getUserName(), this.getPassword())
 				.dbQuery(abstractDbQuery)
 				.schema(this.getSchemaName())

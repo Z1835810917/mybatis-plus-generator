@@ -1,8 +1,11 @@
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.config.*;
+import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;
+import com.baomidou.mybatisplus.generator.config.querys.MySqlQuery;
 import com.baomidou.mybatisplus.generator.fill.Column;
 import com.baomidou.mybatisplus.generator.fill.Property;
+import com.baomidou.mybatisplus.generator.keywords.MySqlKeyWordsHandler;
 import org.apache.ibatis.jdbc.ScriptRunner;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +24,7 @@ import java.util.Map;
 public class H2CodeGeneratorTest {
 	/**
 	 * 执行初始化数据库脚本
-	 */
+	 *//*
 	@Before
 	public static void before() throws SQLException {
 		Connection conn = DATA_SOURCE_CONFIG.getConn();
@@ -30,7 +33,7 @@ public class H2CodeGeneratorTest {
 		scriptRunner.setAutoCommit(true);
 		scriptRunner.runScript(new InputStreamReader(inputStream));
 		conn.close();
-	}
+	}*/
 
 	/**
 	 * 数据源配置
@@ -226,7 +229,12 @@ public class H2CodeGeneratorTest {
 		// 设置自定义输出文件
 		Map<String, String> customFile = new HashMap<>();
 		customFile.put("test.txt", "/templates/test.vm");
-		AutoGenerator generator = new AutoGenerator(DATA_SOURCE_CONFIG);
+		DataSourceConfig build = new DataSourceConfig.Builder("jdbc:mysql://frps.run:9802/test?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC", "root", "mysql")
+				.dbQuery(new MySqlQuery())
+				.schema("mybatis-plus")
+				.typeConvert(new MySqlTypeConvert())
+				.keyWordsHandler(new MySqlKeyWordsHandler()).build();
+		AutoGenerator generator = new AutoGenerator(build);
 		generator.strategy(strategyConfig().build());
 		generator.injection(injectionConfig().customFile(customFile).build());
 		generator.global(globalConfig().build());

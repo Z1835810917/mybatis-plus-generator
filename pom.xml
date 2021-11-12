@@ -27,6 +27,11 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.bm001</groupId>
+                <artifactId>generator-utils</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <!-- spring boot 最上层配置管理 start-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
