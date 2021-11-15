@@ -27,6 +27,6 @@ public class InfoVO {
   /**
    * 表前缀
    */
-  private String ablePrefix;
+  private String tablePrefix;
 
 }
