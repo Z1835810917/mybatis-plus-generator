@@ -3,8 +3,8 @@ package com.bm001.entity;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
+import lombok.Data;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -12,6 +12,7 @@ import java.util.Date;
  * @date: 2021/11/12 16:39
  * @description:
  */
+@Data
 public class BaseBO {
 
 	/**

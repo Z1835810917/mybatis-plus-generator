@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.generator.config.TemplateType;
 /**
  * @author: cfn
  * @date: 2021/11/12 16:21
- * @description:
+ * @description: 模板配置
  */
 public class TemplateEntity {
 

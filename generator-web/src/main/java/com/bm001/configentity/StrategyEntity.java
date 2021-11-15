@@ -1,13 +1,8 @@
 package com.bm001.configentity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
-import com.baomidou.mybatisplus.generator.config.po.LikeTable;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
-import com.baomidou.mybatisplus.generator.fill.Column;
-import com.baomidou.mybatisplus.generator.fill.Property;
 import com.bm001.controller.BaseController;
 import com.bm001.entity.BaseBO;
 import lombok.Data;
@@ -16,7 +11,7 @@ import lombok.experimental.Accessors;
 /**
  * @author: cfn
  * @date: 2021/11/12 15:45
- * @description:
+ * @description: 策略配置
  */
 @Data
 @Accessors(chain = true)
@@ -32,6 +27,11 @@ public class StrategyEntity {
 	 */
 	private String tablePrefix;
 
+	/**
+	 * 获得策略配置
+	 *
+	 * @return
+	 */
 	public StrategyConfig getStrategyConfig() {
 		StrategyConfig.Builder builder = new StrategyConfig.Builder()
 				.enableCapitalMode()

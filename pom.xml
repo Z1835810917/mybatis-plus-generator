@@ -14,15 +14,18 @@
         <module>generator-web</module>
     </modules>
     <properties>
-        <java.version>1.8</java.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring.version>2.1.8.RELEASE</spring.version>
+        <spring.version>2.5.4</spring.version>
         <mysql.version>8.0.21</mysql.version>
         <postgresql.version>42.2.18</postgresql.version>
         <mybatis.version>3.4.3.4</mybatis.version>
         <commons-lang3.version>3.11</commons-lang3.version>
         <hutool.version>5.5.0</hutool.version>
         <mybatis.generator>3.5.1</mybatis.generator>
+        <k4.version>2.0.9</k4.version>
     </properties>
 
     <dependencyManagement>
@@ -65,24 +68,19 @@
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-spring-boot-starter</artifactId>
+                <version>${k4.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-spring-ui</artifactId>
+                <version>${k4.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
-
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>2.3.2</version>
-                    <configuration>
-                        <source>1.8</source>
-                        <target>1.8</target>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
 
     <repositories>
         <repository>

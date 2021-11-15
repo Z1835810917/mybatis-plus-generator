@@ -11,7 +11,7 @@ import java.util.Objects;
 /**
  * @author: cfn
  * @date: 2021/11/12 14:24
- * @description:
+ * @description: 全局配置
  */
 @Data
 @Accessors(chain = true)

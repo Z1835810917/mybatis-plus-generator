@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * @author: cfn
  * @date: 2021/11/12 11:53
- * @description:
+ * @description: 包信息配置
  */
 @Data
 @Accessors(chain = true)
