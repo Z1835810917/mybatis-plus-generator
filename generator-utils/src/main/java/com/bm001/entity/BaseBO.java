@@ -17,11 +17,13 @@ public class BaseBO {
 	/**
 	 * 添加人编号
 	 */
+	@TableField(value = "add_user_id")
 	private String addUserId;
 
 	/**
 	 * 添加人姓名
 	 */
+	@TableField(value = "add_user_name")
 	private String addUserName;
 
 	/**
@@ -33,11 +35,13 @@ public class BaseBO {
 	/**
 	 * 修改人编号
 	 */
+	@TableField(value = "opt_user_id")
 	private String optUserId;
 
 	/**
 	 * 修改人姓名
 	 */
+	@TableField(value = "opt_user_name")
 	private String optUserName;
 
 	/**
@@ -50,6 +54,6 @@ public class BaseBO {
 	 * 删除时间
 	 */
 	@TableLogic
-	//@TableField(value = "is_delete", fill = FieldFill.INSERT)
+	@TableField(value = "delete_at", fill = FieldFill.INSERT)
 	private Long deleteAt;
 }
