@@ -75,7 +75,6 @@ public class ${table.controllerName} {
      * @return Result
      */
     @PreAuth
-    @Log(value = "$!{table.comment}列表", exception = "$!{table.comment}列表请求异常")
     @GetMapping("/page")
     @ApiOperation(value = "$!{table.comment}列表", notes = "分页查询")
     @ApiImplicitParams({
@@ -96,7 +95,6 @@ public class ${table.controllerName} {
      * @return Result
      */
     @PreAuth
-    @Log(value = "$!{table.comment}信息", exception = "$!{table.comment}信息请求异常")
     @GetMapping("/get")
     @ApiOperation(value = "$!{table.comment}信息", notes = "根据ID查询")
     @ApiImplicitParams({
@@ -113,7 +111,6 @@ public class ${table.controllerName} {
     * @return Result
     */
     @PreAuth
-    @Log(value = "$!{table.comment}设置", exception = "$!{table.comment}设置请求异常")
     @PostMapping("/set")
     @ApiOperation(value = "$!{table.comment}设置", notes = "$!{table.comment}设置,支持新增或修改")
     public Result<?> set(@Valid @RequestBody $!{entity} $!{table.entityPath}) {
@@ -127,7 +124,6 @@ public class ${table.controllerName} {
     * @return Result
     */
     @PreAuth
-    @Log(value = "$!{table.comment}删除", exception = "$!{table.comment}删除请求异常")
     @PostMapping("/del")
     @ApiOperation(value = "$!{table.comment}删除", notes = "$!{table.comment}删除")
     @ApiImplicitParams({

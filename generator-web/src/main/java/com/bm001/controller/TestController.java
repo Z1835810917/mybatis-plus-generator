@@ -17,10 +17,10 @@ public class TestController {
 
 	public static void main(String[] args) throws Exception{
 		DataSourceEntity dataSourceEntity = new DataSourceEntity();
-		dataSourceEntity.setDataUrl("jdbc:mysql://frps.run:9802/test?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC")
+		dataSourceEntity.setDataUrl("jdbc:mysql://frps.run:9802/mybatis-plus?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC")
 				.setUserName("root")
 				.setSchemaName("mybatis-plus")
-				.setPassword( "mysql");
+				.setPassword( "123456");
 
 		GlobalEntity globalEntity = new GlobalEntity();
 		globalEntity.setOutputDir(System.getProperty("user.dir") + "/generator-cc" + "/src/main/java").setAuthor("cfn")
@@ -30,9 +30,9 @@ public class TestController {
 		packageEntity.setModuleName("test")
 				.setParentName("com.aaa");
 		PackageEntity.PackageInfo packageInfo = new PackageEntity.PackageInfo();
-		packageInfo.setMapperXmlUrl(System.getProperty("user.dir") + "/generator-cc" + "/src/main/resources/mapper");
-		/*packageInfo.setControllerUrl(System.getProperty("user.dir") + "/generator-cc" + "/src/main/java/controller");
-		packageInfo.setEntityUrl(System.getProperty("user.dir") + "/generator-cc" + "/src/main/java/entity");
+		//packageInfo.setMapperXmlUrl(System.getProperty("user.dir") + "/generator-cc" + "/src/main/resources/mapper");
+		packageInfo.setControllerUrl(System.getProperty("user.dir") + "/generator-cc" + "/src/main/java");
+		/*packageInfo.setEntityUrl(System.getProperty("user.dir") + "/generator-cc" + "/src/main/java/entity");
 		packageInfo.setServiceUrl(System.getProperty("user.dir") + "/generator-cc" + "/src/main/java/service");
 		packageInfo.setMapperUrl(System.getProperty("user.dir") + "/generator-cc" + "/src/main/java/mapper");
 		packageInfo.setServiceImplUrl(System.getProperty("user.dir") + "/generator-cc" + "/src/main/java/sericve/impl");*/
@@ -46,4 +46,6 @@ public class TestController {
 		generator.template(TemplateEntity.getTemplateConfig());
 		generator.execute();
 	}
+
+
 }
