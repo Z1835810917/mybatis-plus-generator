@@ -60,6 +60,7 @@ public class WrapperUtil {
                         break;
                     case EQ:
                         queryWrapper.eq(humpToLine(colName), obj);
+                        break;
                 }
             }
         }
