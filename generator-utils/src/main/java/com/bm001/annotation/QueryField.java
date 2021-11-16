@@ -1,6 +1,5 @@
 package com.bm001.annotation;
 
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -12,7 +11,9 @@ import lombok.Getter;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.ANNOTATION_TYPE})
 /**
- * 注解描述 标注字段为Like,value为Like的字段名 使用WrapperUtil进行转化时会将该字段的值自动转化为Like
+ * 注解描述 查询注解
+ *         value是字段名
+ *
  * 
  * @author: chenmingjun
  * @date: 2021/11/16
@@ -20,7 +21,7 @@ import lombok.Getter;
 public @interface QueryField {
     String value() default "";
 
-    QueryType TYPE() default QueryType.EQ;
+    QueryType type() default QueryType.EQ;
 
     enum QueryType {
         EQ(0), LIST(1), LIKE(2), MIN(3), MAX(4);
