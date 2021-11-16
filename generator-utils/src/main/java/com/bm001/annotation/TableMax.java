@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.ANNOTATION_TYPE})
 /**
- * 注解描述  标注字段的范围
+ * 注解描述  标注字段的范围，value为列名
  *         使用WrapperUtil进行转化时会自动拼接<该值的条件
  * @author: chenmingjun
  * @date: 2021/11/16
