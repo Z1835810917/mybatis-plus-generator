@@ -55,10 +55,11 @@ public class WrapperUtil {
                 } else if (field.getAnnotation(TableMin.class) != null) {
                     String colName = field.getAnnotation(TableMin.class).value();
                     queryWrapper.gt(colName, obj);
+                    // 生成< 子句
                 } else if (field.getAnnotation(TableMax.class) != null) {
                     String colName = field.getAnnotation(TableMax.class).value();
                     queryWrapper.lt(colName, obj);
-                    // 生成< 子句
+                    // 生成 = 子句
                 } else if (t.getDeclaredField(fieldName) != null) {
                     queryWrapper.eq(humpToLine(fieldName), obj);
                 }
