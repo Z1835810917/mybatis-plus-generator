@@ -1,14 +1,16 @@
 package com.bm001.util;
 
-
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.bm001.annotation.TableLike;
+import com.bm001.annotation.TableList;
+import com.bm001.annotation.TableMax;
+import com.bm001.annotation.TableMin;
 import java.lang.reflect.Field;
 
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.springframework.util.StringUtils;
-
 
 /**
  * @program: ehome-sup
@@ -41,31 +43,22 @@ public class WrapperUtil {
             }
             Object obj = field.get(condition);
             if (obj != null) {
-                // 如果字段以Like结尾,PO中有相对于属性，并且是String类型，生成Like
-                if (fieldName.length() > 4 && fieldName.startsWith("Like", fieldName.length() - 4)
-                    && t.getDeclaredField(fieldName.substring(0, fieldName.length() - 4)) != null
-                    && obj instanceof String) {
-                    String colName = fieldName.substring(0, fieldName.length() - 4);
-                    queryWrapper.like(humpToLine(colName), obj);
-                    // 以List结尾并且是List类型，PO中有相对于属性，生成in
-                } else if (fieldName.length() > 4 && fieldName.startsWith("List", fieldName.length() - 4)
-                    && t.getDeclaredField(fieldName.substring(0, fieldName.length() - 4)) != null
-                    && obj instanceof List) {
-                    String colName = fieldName.substring(0, fieldName.length() - 4);
-                    queryWrapper.in(humpToLine(colName), (List)obj);
-                    // 如果去除min/max前缀后再po中有对应属性，且存在另外一个max/min的属性才生成大于/小于子句
-                    // 成立例子:po中存在变量 date，form/condition中有变量maxDate与minDate才生成大于/小于子句
-                } else if (fieldName.length() > 3 && fieldName.startsWith("min")
-                    && condition.getClass().getDeclaredField(fieldName.replaceFirst("min", "max")) != null
-                    && t.getDeclaredField(lowerFirst(fieldName.replaceFirst("min", ""))) != null) {
-                    String colName = fieldName.replaceFirst("min", "");
-                    queryWrapper.gt(humpToLine(colName), obj);
-                } else if (fieldName.length() > 3 && fieldName.startsWith("max")
-                    && condition.getClass().getDeclaredField(fieldName.replaceFirst("max", "min")) != null
-                    && t.getDeclaredField(lowerFirst(fieldName.replaceFirst("max", ""))) != null) {
-                    String colName = fieldName.replaceFirst("max", "");
-                    queryWrapper.lt(humpToLine(colName), obj);
-                    // 生成普通的eq子句
+                    // 生成like语句
+                if (field.getAnnotation(TableLike.class) != null) {
+                    String colName = field.getAnnotation(TableLike.class).value();
+                    queryWrapper.like(colName, obj);
+                    // 生成in语句
+                } else if (field.getAnnotation(TableList.class) != null) {
+                    String colName = field.getAnnotation(TableList.class).value();
+                    queryWrapper.in(colName, (List)obj);
+                    //生成 >子句
+                } else if (field.getAnnotation(TableMin.class) != null) {
+                    String colName = field.getAnnotation(TableMin.class).value();
+                    queryWrapper.gt(colName, obj);
+                } else if (field.getAnnotation(TableMax.class) != null) {
+                    String colName = field.getAnnotation(TableMax.class).value();
+                    queryWrapper.lt(colName, obj);
+                    // 生成< 子句
                 } else if (t.getDeclaredField(fieldName) != null) {
                     queryWrapper.eq(humpToLine(fieldName), obj);
                 }
@@ -93,6 +86,7 @@ public class WrapperUtil {
 
     /**
      * 方法描述 驼峰转下划线
+     * 
      * @param: [str]
      * @return: java.lang.String
      * @author: chenmingjun
@@ -107,6 +101,5 @@ public class WrapperUtil {
         matcher.appendTail(sb);
         return sb.toString();
     }
-
 
 }
