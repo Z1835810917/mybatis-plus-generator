@@ -11,9 +11,7 @@ import lombok.Getter;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.ANNOTATION_TYPE})
 /**
- * 注解描述 查询注解
- *         value是字段名
- *
+ * 注解描述 查询注解，value:字段名,Type查询类型
  * 
  * @author: chenmingjun
  * @date: 2021/11/16

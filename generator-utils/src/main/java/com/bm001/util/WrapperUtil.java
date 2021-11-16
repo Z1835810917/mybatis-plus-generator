@@ -45,7 +45,7 @@ public class WrapperUtil {
             //转化条件 1、Entity必须有值 2、必须有QueryField注解 3、注解value不能为空
             if (obj != null && annotation != null && !StringUtils.isEmpty(colName)) {
                 //注解转化为查询条件
-                switch (annotation.TYPE()) {
+                switch (annotation.type()) {
                     case LIKE:
                         queryWrapper.like(humpToLine(colName), obj);
                         break;
