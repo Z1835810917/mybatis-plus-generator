@@ -59,7 +59,7 @@ public class StrategyEntity {
 				.enableRemoveIsPrefix()
 				.enableTableFieldAnnotation()
 				.logicDeleteColumnName("deleted")
-				.naming(NamingStrategy.no_change)
+				.naming(NamingStrategy.underline_to_camel)
 				.columnNaming(NamingStrategy.underline_to_camel)
 				.idType(IdType.AUTO)
 				.formatFileName("%sEntity");

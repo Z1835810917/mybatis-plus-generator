@@ -62,6 +62,11 @@ public class PackageEntity {
 	private String controllerName;
 
 	/**
+	 * 其他包名
+	 */
+	private String otherName;
+
+	/**
 	 * 构建包配置
 	 *
 	 * @return
@@ -74,6 +79,7 @@ public class PackageEntity {
 		String mapperXmlName = StringUtils.isNotBlank(this.getMapperName()) ? this.getXmlMame() : "mapper.xml";
 		String controllerName = StringUtils.isNotBlank(this.getControllerName()) ? this.getControllerName() : "controller";
 		String entityName = StringUtils.isNotBlank(this.getEntityName()) ? this.getEntityName() : "bo";
+		String otherName = StringUtils.isNotBlank(this.getOtherName()) ? this.getOtherName() : "vo";
 
 		//封装包配置路径
 		PackageConfig.Builder packageConfig = new PackageConfig.Builder()
@@ -84,7 +90,7 @@ public class PackageEntity {
 				.mapper(mapperName)
 				.xml(mapperXmlName)
 				.controller(controllerName)
-				.other("other");
+				.other(otherName);
 		String moduleName = this.getModuleName();
 		if (StringUtils.isNotBlank(moduleName)) {
 			packageConfig.moduleName(moduleName);

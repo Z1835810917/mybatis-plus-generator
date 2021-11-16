@@ -1,11 +1,9 @@
 package com.bm001.configentity;
 
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.config.InjectionConfig;
 import lombok.Data;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashMap;
 
 /**
  * @author: cfn
@@ -15,12 +13,19 @@ import java.util.Collections;
 @Data
 public class InjectionEntity {
 
-	public static InjectionConfig getInjection() {
+	public static InjectionConfig getInjection(String moduleName) {
+		HashMap<String, String> map = new HashMap<>();
+		map.put(moduleName + "Vo.java" , "/templates/vo.java.vm");
+		map.put(moduleName + "Form.java" , "/templates/form.java.vm");
+		HashMap<String, Object> maps = new HashMap<>();
+		maps.put("voName" , moduleName + "Vo");
+		maps.put("formName" , moduleName + "Form");
 		return new InjectionConfig.Builder()
 				.beforeOutputFile((tableInfo, objectMap) -> {
 					System.out.println("tableInfo: " + tableInfo.getEntityName() + " objectMap: " + objectMap.size());
 				})
-				.customFile(Collections.singletonMap("role.java", "/templates/vo.java.vm"))
+				.customFile(map)
+				.customMap(maps)
 				.build();
 	}
 }

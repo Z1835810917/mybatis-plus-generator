@@ -3,9 +3,8 @@ package com.bm001.util;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.bm001.annotation.QueryField;
-import com.bm001.annotation.QueryField.QueryType;
-import java.lang.reflect.Field;
 
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

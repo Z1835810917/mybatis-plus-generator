@@ -6,8 +6,6 @@ import com.bm001.configentity.*;
 import com.bm001.vo.GeneratorCreateVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.extern.log4j.Log4j;
-import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -66,7 +64,7 @@ public class GeneratorCodeController {
 		generator.global(globalEntity.getGolbalConfig());
 		generator.packageInfo(packageEntity.getPageConfig(packageInfo));
 		generator.template(TemplateEntity.getTemplateConfig());
-		generator.execute();
+		generator.execute(new CustomTemplateEntity());
 	}
 
 }
