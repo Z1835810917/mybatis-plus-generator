@@ -1,16 +1,14 @@
 package com.bm001.util;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.bm001.annotation.TableLike;
-import com.bm001.annotation.TableList;
-import com.bm001.annotation.TableMax;
-import com.bm001.annotation.TableMin;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.bm001.annotation.QueryField;
+import com.bm001.annotation.QueryField.QueryType;
 import java.lang.reflect.Field;
 
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.springframework.util.StringUtils;
 
 /**
  * @program: ehome-sup
@@ -42,26 +40,26 @@ public class WrapperUtil {
                 continue;
             }
             Object obj = field.get(condition);
-            if (obj != null) {
-                    // 生成like语句
-                if (field.getAnnotation(TableLike.class) != null) {
-                    String colName = field.getAnnotation(TableLike.class).value();
-                    queryWrapper.like(colName, obj);
-                    // 生成in语句
-                } else if (field.getAnnotation(TableList.class) != null) {
-                    String colName = field.getAnnotation(TableList.class).value();
-                    queryWrapper.in(colName, (List)obj);
-                    //生成 >子句
-                } else if (field.getAnnotation(TableMin.class) != null) {
-                    String colName = field.getAnnotation(TableMin.class).value();
-                    queryWrapper.gt(colName, obj);
-                    // 生成< 子句
-                } else if (field.getAnnotation(TableMax.class) != null) {
-                    String colName = field.getAnnotation(TableMax.class).value();
-                    queryWrapper.lt(colName, obj);
-                    // 生成 = 子句
-                } else if (t.getDeclaredField(fieldName) != null) {
-                    queryWrapper.eq(humpToLine(fieldName), obj);
+            QueryField annotation = field.getAnnotation(QueryField.class);
+            String colName = annotation.value();
+            //转化条件 1、Entity必须有值 2、必须有QueryField注解 3、注解value不能为空
+            if (obj != null && annotation != null && !StringUtils.isEmpty(colName)) {
+                //注解转化为查询条件
+                switch (annotation.TYPE()) {
+                    case LIKE:
+                        queryWrapper.like(humpToLine(colName), obj);
+                        break;
+                    case LIST:
+                        queryWrapper.in(humpToLine(colName), (List)obj);
+                        break;
+                    case MIN:
+                        queryWrapper.gt(humpToLine(colName), obj);
+                        break;
+                    case MAX:
+                        queryWrapper.lt(humpToLine(colName), obj);
+                        break;
+                    case EQ:
+                        queryWrapper.eq(humpToLine(colName), obj);
                 }
             }
         }
