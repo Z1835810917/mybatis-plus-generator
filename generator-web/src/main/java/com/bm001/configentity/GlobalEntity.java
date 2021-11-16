@@ -60,8 +60,7 @@ public class GlobalEntity {
 		GlobalConfig.Builder builder = new GlobalConfig.Builder()
 				.outputDir(outputDir)
 				.disableOpenDir()
-				.author(StringUtils.isBlank(this.getAuthor()) ? this.getAuthor() : "user")
-				.enableSwagger()
+				.author(StringUtils.isNotBlank(this.getAuthor()) ? this.getAuthor() : "user")
 				.dateType(this.getDateType())
 				.commentDate(commentDate);
 		if (Objects.nonNull(this.getSwagger()) && this.getSwagger()) {
