@@ -42,8 +42,8 @@ public class WrapperUtil {
             Object obj = field.get(condition);
             QueryField annotation = field.getAnnotation(QueryField.class);
             String colName = annotation.value();
-            //转化条件 1、Entity必须有值 2、必须有QueryField注解 3、注解value不能为空
-            if (obj != null && annotation != null && !StringUtils.isEmpty(colName)) {
+            //转化条件 1、Entity必须有值 2、必须有QueryField注解
+            if (obj != null && annotation != null) {
                 //注解转化为查询条件
                 switch (annotation.type()) {
                     case LIKE:
@@ -59,7 +59,7 @@ public class WrapperUtil {
                         queryWrapper.lt(humpToLine(colName), obj);
                         break;
                     case EQ:
-                        queryWrapper.eq(humpToLine(colName), obj);
+                        queryWrapper.eq(humpToLine(fieldName), obj);
                         break;
                 }
             }
