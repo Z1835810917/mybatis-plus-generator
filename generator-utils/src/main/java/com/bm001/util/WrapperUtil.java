@@ -46,6 +46,9 @@ public class WrapperUtil {
             if (obj != null && annotation != null) {
                 //注解转化为查询条件
                 switch (annotation.type()) {
+                    case EQ:
+                        queryWrapper.eq(humpToLine(fieldName), obj);
+                        break;
                     case LIKE:
                         queryWrapper.like(humpToLine(colName), obj);
                         break;
@@ -57,9 +60,6 @@ public class WrapperUtil {
                         break;
                     case MAX:
                         queryWrapper.lt(humpToLine(colName), obj);
-                        break;
-                    case EQ:
-                        queryWrapper.eq(humpToLine(fieldName), obj);
                         break;
                 }
             }
