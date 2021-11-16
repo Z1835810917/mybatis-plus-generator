@@ -1,4 +1,4 @@
-package ${package.Other};
+package ${package.Other}form;
 
 #foreach($pkg in ${table.importPackages})
 import ${pkg};
@@ -13,6 +13,10 @@ import lombok.Setter;
     #if(${chainModel})
 	import lombok.experimental.Accessors;
     #end
+
+import com.bm001.entity.BaseForm;
+import com.bm001.annotation.QueryField;
+import java.util.List;
 #end
 
 /**
@@ -34,7 +38,7 @@ import lombok.Setter;
 @ApiModel(value = "${entity}对象", description = "$!{table.comment}")
 #end
 
-public class ${formName} {
+public class ${formName} extends BaseForm{
 
 ## ----------  BEGIN 字段循环遍历  ----------
 #foreach($field in ${table.fields})
@@ -47,8 +51,31 @@ public class ${formName} {
         @ApiModelProperty("${field.comment}")
         #end
     #end
-private ${field.propertyType} ${field.propertyName};
+    #if("$!field.propertyType" != "Date")
+    @QueryField(type =QueryField.QueryType.EQ)
+    #end
+    private ${field.propertyType} ${field.propertyName};
+
+    #if("$!field.propertyName" == "name")
+    @QueryField(value="id", type = QueryField.QueryType.LIKE)
+    @ApiModelProperty(value = "id集合")
+    private String nameLike;
+    #end
+    #if("$!field.propertyName" == "id")
+	@QueryField(value="id", type =QueryField.QueryType.LIST)
+	@ApiModelProperty(value = "id集合")
+	private List<$!{field.propertyType}> idList;
+    #end
 #end
+@QueryField(value="add_time", type =QueryField.QueryType.MIN)
+@ApiModelProperty(value = "最小添加时间")
+private Date minAddTime;
+
+@QueryField(value="add_time", type =QueryField.QueryType.MAX)
+@ApiModelProperty(value = "最大添加时间")
+private Date maxAddTime;
+
+
 ## ----------  END 字段循环遍历  ----------
 
 #if(!${entityLombokModel})
@@ -109,4 +136,4 @@ public String toString() {
 		"}";
 		}
 #end
-		}
+}

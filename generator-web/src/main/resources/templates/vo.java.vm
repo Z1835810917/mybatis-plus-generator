@@ -1,4 +1,4 @@
-package ${package.Other};
+package ${package.Other}vo;
 
 #foreach($pkg in ${table.importPackages})
 import ${pkg};

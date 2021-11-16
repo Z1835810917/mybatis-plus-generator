@@ -1,16 +1,13 @@
-PACKAGE ${package.ServiceImpl};
+package ${package.ServiceImpl};
 
-import vip.mate.core.database.entity.Search;
 import ${package.Entity}.${entity};
 import ${package.Mapper}.${table.mapperName};
 import ${package.Service}.${table.serviceName};
 import ${superServiceImplClassPackage};
 import org.springframework.stereotype.Service;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import vip.mate.core.common.util.StringUtil;
-import vip.mate.core.database.util.PageUtil;
-
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 /**
  * <p>
  * $!{table.comment} 服务实现类
@@ -28,16 +25,8 @@ open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperNam
 public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}> implements ${table.serviceName} {
 
 		@Override
-		public IPage<${entity}> listPage(Search search) {
-			LambdaQueryWrapper<${entity}> queryWrapper = new LambdaQueryWrapper<>();
-			if (StringUtil.isNotBlank(search.getStartDate())) {
-				queryWrapper.between(${entity}::getCreateTime, search.getStartDate(), search.getEndDate());
-			}
-			if (StringUtil.isNotBlank(search.getKeyword())) {
-				queryWrapper.like(${entity}::getId, search.getKeyword());
-			}
-			queryWrapper.orderByDesc(${entity}::getCreateTime);
-			return this.baseMapper.selectPage(PageUtil.getPage(search), queryWrapper);
+		public IPage<${entity}> listPage(Page<${entity}> page, QueryWrapper<${entity}> queryWrapper) {
+			return this.baseMapper.selectPage(page, queryWrapper);
 		}
 }
 #end

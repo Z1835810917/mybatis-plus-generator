@@ -6,12 +6,15 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 import lombok.AllArgsConstructor;
-
-import vip.mate.core.auth.annotation.PreAuth;
-import vip.mate.core.common.api.Result;
-import vip.mate.core.database.entity.Search;
-import vip.mate.core.log.annotation.Log;
-import vip.mate.core.web.util.CollectionUtil;
+import cn.hutool.core.collection.CollectionUtil;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.bm.center.base.util.ResUtil;
+import com.bm.center.base.util.CopyUtil;
+import com.bm.center.base.response.ResponseEntity;
+import com.bm001.util.PageUtils;
+import com.bm001.util.WrapperUtil;
 
 #if(${restControllerStyle})
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +27,10 @@ import ${superControllerClassPackage};
 import $!{package.Service}.$!{table.serviceName};
 import ${package.Entity}.${entity};
 import javax.validation.Valid;
-
+import ${package.Other}form.$!{caseModuleName}Form;
+import ${package.Other}vo.$!{caseModuleName}Vo;
+import lombok.SneakyThrows;
+import java.util.List;
 /**
  * <p>
  * $!{table.comment} 前端控制器
@@ -50,72 +56,31 @@ public class ${table.controllerName} extends ${superControllerClass} {
 public class ${table.controllerName} {
 #end
 
-    private final $!{table.serviceName} $!{table.entityPath}Service;
+    private final $!{table.serviceName} $!{caseModuleName}Service;
 
     /**
      * 分页列表
      *
-     * @param search 　搜索关键词
+     * @param $!{moduleName}form 　搜索关键词
      * @return Result
      */
-    @PreAuth
-    @GetMapping("/page")
+    @SneakyThrows
+    @PostMapping("/page")
     @ApiOperation(value = "$!{table.comment}列表", notes = "分页查询")
-    @ApiImplicitParams({
-        @ApiImplicitParam(name = "current", required = true, value = "当前页", paramType = "form"),
-        @ApiImplicitParam(name = "size", required = true, value = "每页显示数据", paramType = "form"),
-        @ApiImplicitParam(name = "keyword", required = true, value = "模糊查询关键词", paramType = "form"),
-        @ApiImplicitParam(name = "startDate", required = true, value = "创建开始日期", paramType = "form"),
-        @ApiImplicitParam(name = "endDate", required = true, value = "创建结束日期", paramType = "form"),
-    })
-    public Result<?> page(Search search) {
-		return Result.data($!{table.entityPath}Service.listPage(search));
+    public ResponseEntity<IPage<$!{caseModuleName}Vo>> page(@RequestBody $!{caseModuleName}Form $!{moduleName}form) {
+		QueryWrapper<${entity}> queryWrapper = WrapperUtil.entityToWrapper(testform, ${entity}.class);
+		//封装分页参数
+		Page<${entity}> pageForm = PageUtils.getPage($!{moduleName}form);
+		IPage<${entity}> page = $!{caseModuleName}Service.listPage(pageForm, queryWrapper);
+		List<${entity}> list =page.getRecords();
+		if (CollectionUtil.isEmpty(list)) {
+		    return ResUtil.getSuccessResult(page);
+		}
+		List<$!{caseModuleName}Vo> $!{moduleName}VoList = CopyUtil.transfer(list,$!{caseModuleName}Vo.class);
+		IPage<$!{caseModuleName}Vo> pageVo	=CopyUtil.transfer(page,Page.class);
+		pageVo.setRecords($!{moduleName}VoList);
+		return ResUtil.getSuccessResult(pageVo);
     }
-
-    /**
-     * $!{table.comment}信息
-     *
-     * @param id Id
-     * @return Result
-     */
-    @PreAuth
-    @GetMapping("/get")
-    @ApiOperation(value = "$!{table.comment}信息", notes = "根据ID查询")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", required = true, value = "ID", paramType = "form"),
-    })
-    public Result<?> get(@RequestParam String id) {
-		return Result.data($!{table.entityPath}Service.getById(id));
-	}
-
-    /**
-    * $!{table.comment}设置
-    *
-    * @param $!{table.entityPath} $!{entity} 对象
-    * @return Result
-    */
-    @PreAuth
-    @PostMapping("/set")
-    @ApiOperation(value = "$!{table.comment}设置", notes = "$!{table.comment}设置,支持新增或修改")
-    public Result<?> set(@Valid @RequestBody $!{entity} $!{table.entityPath}) {
-		return Result.condition($!{table.entityPath}Service.saveOrUpdate($!{table.entityPath}));
-	}
-
-    /**
-    * $!{table.comment}删除
-    *
-    * @param ids id字符串，根据,号分隔
-    * @return Result
-    */
-    @PreAuth
-    @PostMapping("/del")
-    @ApiOperation(value = "$!{table.comment}删除", notes = "$!{table.comment}删除")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
-    })
-    public Result<?> del(@RequestParam String ids) {
-		return Result.condition($!{table.entityPath}Service.removeByIds(CollectionUtil.stringToCollection(ids)));
-	}
 }
 
 #end

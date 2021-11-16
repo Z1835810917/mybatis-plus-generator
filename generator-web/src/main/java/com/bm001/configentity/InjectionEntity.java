@@ -2,6 +2,7 @@ package com.bm001.configentity;
 
 import com.baomidou.mybatisplus.generator.config.InjectionConfig;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
 
@@ -10,19 +11,29 @@ import java.util.HashMap;
  * @date: 2021/11/15 16:46
  * @description:
  */
+@Slf4j
 @Data
 public class InjectionEntity {
 
+	/**
+	 * 设置注入自定义模板配置
+	 *
+	 * @param moduleName
+	 * @return
+	 */
 	public static InjectionConfig getInjection(String moduleName) {
+		String caseModuleName = moduleName.substring(0, 1).toUpperCase() + moduleName.substring(1);
 		HashMap<String, String> map = new HashMap<>();
-		map.put(moduleName + "Vo.java" , "/templates/vo.java.vm");
-		map.put(moduleName + "Form.java" , "/templates/form.java.vm");
+		map.put(caseModuleName + "Vo.java" , "/templates/vo.java.vm");
+		map.put(caseModuleName + "Form.java" , "/templates/form.java.vm");
 		HashMap<String, Object> maps = new HashMap<>();
-		maps.put("voName" , moduleName + "Vo");
-		maps.put("formName" , moduleName + "Form");
+		maps.put("voName" , caseModuleName + "Vo");
+		maps.put("formName" , caseModuleName + "Form");
 		return new InjectionConfig.Builder()
 				.beforeOutputFile((tableInfo, objectMap) -> {
-					System.out.println("tableInfo: " + tableInfo.getEntityName() + " objectMap: " + objectMap.size());
+					objectMap.put("caseModuleName" , caseModuleName);
+					objectMap.put("moduleName" , moduleName);
+					log.info("tableInfo: " + tableInfo.getName() + " objectMap: " + objectMap.size());
 				})
 				.customFile(map)
 				.customMap(maps)

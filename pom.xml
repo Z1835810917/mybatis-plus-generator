@@ -26,10 +26,16 @@
         <hutool.version>5.5.0</hutool.version>
         <mybatis.generator>3.5.1</mybatis.generator>
         <k4.version>2.0.9</k4.version>
+        <base.center.version>2.ka.0.7-RELEASE</base.center.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.qianmi</groupId>
+                <artifactId>bm-center-base</artifactId>
+                <version>${base.center.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.bm001</groupId>
                 <artifactId>generator-utils</artifactId>
