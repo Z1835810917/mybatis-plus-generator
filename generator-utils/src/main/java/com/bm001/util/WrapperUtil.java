@@ -47,7 +47,7 @@ public class WrapperUtil {
                 //注解转化为查询条件
                 switch (annotation.type()) {
                     case EQ:
-                        queryWrapper.eq(humpToLine(fieldName), obj);
+                        queryWrapper.eq(humpToLine(StringUtils.isBlank(colName)?fieldName:colName), obj);
                         break;
                     case LIKE:
                         queryWrapper.like(humpToLine(colName), obj);
@@ -56,10 +56,10 @@ public class WrapperUtil {
                         queryWrapper.in(humpToLine(colName), (List)obj);
                         break;
                     case MIN:
-                        queryWrapper.gt(humpToLine(colName), obj);
+                        queryWrapper.ge(humpToLine(colName), obj);
                         break;
                     case MAX:
-                        queryWrapper.lt(humpToLine(colName), obj);
+                        queryWrapper.le(humpToLine(colName), obj);
                         break;
                 }
             }
