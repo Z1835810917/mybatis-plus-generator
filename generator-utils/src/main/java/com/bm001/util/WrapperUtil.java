@@ -6,6 +6,7 @@ import com.bm001.annotation.QueryField;
 
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -36,19 +37,19 @@ public class WrapperUtil {
 				//注解转化为查询条件
 				switch (annotation.type()) {
 					case EQ:
-						queryWrapper.eq(StringUtils.isBlank(colName) ? fieldName : colName, obj);
+						queryWrapper.eq(StringUtils.isBlank(colName) ? fieldName : humpToLine(colName), obj);
 						break;
 					case LIKE:
-						queryWrapper.like(colName, obj);
+						queryWrapper.like(humpToLine(colName), obj);
 						break;
 					case LIST:
-						queryWrapper.in(colName, (List) obj);
+						queryWrapper.in(humpToLine(colName), (List) obj);
 						break;
 					case MIN:
-						queryWrapper.ge(colName, obj);
+						queryWrapper.ge(humpToLine(colName), obj);
 						break;
 					case MAX:
-						queryWrapper.le(colName, obj);
+						queryWrapper.le(humpToLine(colName), obj);
 						break;
 				}
 			}
@@ -80,7 +81,7 @@ public class WrapperUtil {
 	 * @return: java.lang.String
 	 * @author: chenmingjun
 	 * @date: 2021/11/12
-	 *//*
+	 */
     public static String humpToLine(String str) {
         Matcher matcher = humpPattern.matcher(str);
         StringBuffer sb = new StringBuffer();
@@ -89,6 +90,6 @@ public class WrapperUtil {
         }
         matcher.appendTail(sb);
         return sb.toString();
-    }*/
+    }
 
 }
