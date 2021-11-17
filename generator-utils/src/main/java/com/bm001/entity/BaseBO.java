@@ -48,7 +48,7 @@ public class BaseBO {
 	/**
 	 * 修改时间
 	 */
-	@TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
+	@TableField(value = "opt_time", fill = FieldFill.INSERT_UPDATE)
 	private Date optTime;
 
 	/**
