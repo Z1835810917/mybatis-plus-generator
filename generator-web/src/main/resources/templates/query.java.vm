@@ -10,9 +10,9 @@ import io.swagger.annotations.ApiModelProperty;
 #if(${entityLombokModel})
 import lombok.Getter;
 import lombok.Setter;
-#if(${chainModel})
-import lombok.experimental.Accessors;
-#end
+    #if(${chainModel})
+	import lombok.experimental.Accessors;
+    #end
 import com.bm001.entity.BaseForm;
 import com.bm001.annotation.QueryField;
 import java.util.List;
@@ -29,44 +29,52 @@ import java.util.List;
 #if(${entityLombokModel})
 @Getter
 @Setter
-#if(${chainModel})
-@Accessors(chain = true)
-#end
-#end
-#if(${swagger})
-@ApiModel(value = "${entity}对象", description = "$!{table.comment}")
+    #if(${chainModel})
+	@Accessors(chain = true)
+    #end
 #end
 public class ${formName} extends BaseForm{
 
 ## ----------  BEGIN 字段循环遍历  ----------
 #foreach($field in ${table.fields})
     #if("$!field.comment" != "")
-    /**
-     * ${field.comment}
-     */
-    #if(${swagger})
-    @ApiModelProperty("${field.comment}")
+	/**
+	 * ${field.comment}
+	 */
     #end
+    #if("$!field.propertyType" != "Date")
+	@QueryField(type =QueryField.QueryType.EQ)
     #end
     private ${field.propertyType} ${field.propertyName};
 
+    /**
+     * 名称模糊查询
+     */
     #if("$!field.propertyName" == "name")
-    @ApiModelProperty(value = "模糊查询名称")
-    private String nameLike;
+	@QueryField(value="id", type = QueryField.QueryType.LIKE)
+	private String nameLike;
+
+    /**
+     * id集合查询
+     */
     #end
     #if("$!field.propertyName" == "id")
-	@ApiModelProperty(value = "id集合")
+	@QueryField(value="id", type =QueryField.QueryType.LIST)
 	private List<$!{field.propertyType}> idList;
+
     #end
 #end
+    /**
+     * 开始时间
+     */
     @QueryField(value="add_time", type =QueryField.QueryType.MIN)
-    @ApiModelProperty(value = "最小添加时间")
     private Date minAddTime;
 
+    /**
+     * 结束时间
+     */
     @QueryField(value="add_time", type =QueryField.QueryType.MAX)
-    @ApiModelProperty(value = "最大添加时间")
     private Date maxAddTime;
-
 
 ## ----------  END 字段循环遍历  ----------
 
@@ -104,19 +112,19 @@ public class ${formName} extends BaseForm{
     #end
 #end
 #if(${activeRecord})
-@Override
-public Serializable pkVal() {
-    #if(${keyPropertyName})
-			return this.${keyPropertyName};
-    #else
-			return null;
-    #end
-		}
+    @Override
+    public Serializable pkVal() {
+        #if(${keyPropertyName})
+                return this.${keyPropertyName};
+        #else
+                return null;
+        #end
+    }
 
 #end
 #if(!${entityLombokModel})
-@Override
-public String toString() {
+    @Override
+    public String toString() {
 		return "${entity}{" +
     #foreach($field in ${table.fields})
         #if($!{foreach.index}==0)

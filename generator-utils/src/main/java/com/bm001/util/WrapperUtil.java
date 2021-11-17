@@ -5,10 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.bm001.annotation.QueryField;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.BitSet;
 import java.util.List;
-import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -40,10 +37,10 @@ public class WrapperUtil {
 				//注解转化为查询条件
 				switch (annotation.type()) {
 					case EQ:
-						queryWrapper.eq(StringUtils.isBlank(colName) ? fieldName : humpToLine(colName), obj);
+						queryWrapper.eq(StringUtils.isNotBlank((CharSequence) obj), StringUtils.isBlank(colName) ? fieldName : humpToLine(colName), obj);
 						break;
 					case LIKE:
-						queryWrapper.like(humpToLine(colName), obj);
+						queryWrapper.like(StringUtils.isNotBlank((CharSequence) obj), humpToLine(colName), obj);
 						break;
 					case LIST:
 						queryWrapper.in(humpToLine(colName), (List) obj);
@@ -85,46 +82,14 @@ public class WrapperUtil {
 	 * @author: chenmingjun
 	 * @date: 2021/11/12
 	 */
-    public static String humpToLine(String str) {
-        Matcher matcher = humpPattern.matcher(str);
-        StringBuffer sb = new StringBuffer();
-        while (matcher.find()) {
-            matcher.appendReplacement(sb, "_" + matcher.group(0).toLowerCase());
-        }
-        matcher.appendTail(sb);
-        return sb.toString();
-    }
-
-	public static void main(String[] args) {
-
-
-			Random random=new Random();
-
-			List<Integer> list=new ArrayList<>();
-			for(int i=0;i<10000000;i++)
-			{
-				int randomResult=random.nextInt(100000000);
-				list.add(randomResult);
-			}
-			System.out.println("产生的随机数有");
-			for(int i=0;i<list.size();i++)
-			{
-				System.out.println(list.get(i));
-			}
-			BitSet bitSet=new BitSet(100000000);
-			for(int i=0;i<10000000;i++)
-			{
-				bitSet.set(list.get(i));
-			}
-
-			System.out.println("0~1亿不在上述随机数中有"+bitSet.cardinality());
-			for (int i = 0; i < 100000000; i++)
-			{
-				if(!bitSet.get(i))
-				{
-					System.out.println(i);
-				}
-			}
-
+	public static String humpToLine(String str) {
+		Matcher matcher = humpPattern.matcher(str);
+		StringBuffer sb = new StringBuffer();
+		while (matcher.find()) {
+			matcher.appendReplacement(sb, "_" + matcher.group(0).toLowerCase());
+		}
+		matcher.appendTail(sb);
+		return sb.toString();
 	}
+
 }

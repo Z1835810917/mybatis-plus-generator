@@ -115,6 +115,9 @@ public class PackageEntity {
 		if (StringUtils.isNotBlank(packageInfo.getControllerUrl())) {
 			map.put(OutputFile.controller, joinPath(getUrl(parentName, controllerName), packageInfo.getControllerUrl()));
 		}
+		if (StringUtils.isNotBlank(packageInfo.getOtherUrl())) {
+			map.put(OutputFile.other, joinPath(getUrl(parentName, otherName), packageInfo.getOtherUrl()));
+		}
 		packageConfig.pathInfo(map);
 		return packageConfig.build();
 	}
@@ -155,6 +158,11 @@ public class PackageEntity {
 		 */
 		private String controllerUrl;
 
+		/**
+		 * other路径
+		 */
+		private String otherUrl;
+
 	}
 
 	private String joinPath(String packageName, String parentDir) {
@@ -164,7 +172,7 @@ public class PackageEntity {
 		if (!StringUtils.endsWith(parentDir, File.separator)) {
 			parentDir += File.separator;
 		}
-		packageName = packageName.replaceAll("\\.", StringPool.BACK_SLASH + File.separator);
+		packageName = packageName.replaceAll("\\." , StringPool.BACK_SLASH + File.separator);
 		return parentDir + packageName;
 	}
 

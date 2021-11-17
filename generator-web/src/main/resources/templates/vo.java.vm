@@ -26,9 +26,9 @@ import lombok.Setter;
 #if(${entityLombokModel})
 @Getter
 @Setter
-    #if(${chainModel})
-	@Accessors(chain = true)
-    #end
+#if(${chainModel})
+@Accessors(chain = true)
+#end
 #end
 #if(${swagger})
 @ApiModel(value = "${entity}对象", description = "$!{table.comment}")
@@ -42,10 +42,9 @@ public class ${voName} {
 	/**
 	 * ${field.comment}
 	 */
-
-        #if(${swagger})
-		@ApiModelProperty("${field.comment}")
-        #end
+    #if(${swagger})
+    @ApiModelProperty("${field.comment}")
+    #end
     #end
     private ${field.propertyType} ${field.propertyName};
 #end

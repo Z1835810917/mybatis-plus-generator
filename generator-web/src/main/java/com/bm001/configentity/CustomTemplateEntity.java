@@ -25,9 +25,16 @@ public class CustomTemplateEntity extends VelocityTemplateEngine{
 	@Override
 	protected void outputCustomFile(Map<String, String> customFile, TableInfo tableInfo, Map<String, Object> objectMap) {
 		String otherPath = getPathInfo(OutputFile.other);
+		String vo = "Vo";
+		String form = "Form";
 		customFile.forEach((key, value) -> {
-			String fileName = String.format((otherPath + File.separator  + File.separator + "%s"), key);
-			outputFile(new File(fileName), objectMap, value);
+			if (key.startsWith(vo, key.length() - 7)) {
+				String fileName = String.format((otherPath + "vo" + File.separator + File.separator + "%s"), key);
+				outputFile(new File(fileName), objectMap, value);
+			} else if (key.startsWith(form, key.length() - 9)) {
+				String fileName = String.format((otherPath + "form" + File.separator + File.separator + "%s"), key);
+				outputFile(new File(fileName), objectMap, value);
+			}
 		});
 	}
 }

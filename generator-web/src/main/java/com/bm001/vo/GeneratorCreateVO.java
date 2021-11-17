@@ -98,4 +98,10 @@ public class GeneratorCreateVO {
 	@ApiModelProperty("controller路径")
 	private String controllerUrl;
 
+	/**
+	 * other路径
+	 */
+	@ApiModelProperty("other路径")
+	private String otherUrl;
+
 }

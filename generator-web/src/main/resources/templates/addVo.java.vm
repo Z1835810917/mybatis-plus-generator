@@ -1,4 +1,4 @@
-package ${package.Other}form;
+package ${package.Other}vo;
 
 #foreach($pkg in ${table.importPackages})
 import ${pkg};
@@ -10,13 +10,12 @@ import io.swagger.annotations.ApiModelProperty;
 #if(${entityLombokModel})
 import lombok.Getter;
 import lombok.Setter;
-#if(${chainModel})
-import lombok.experimental.Accessors;
+    #if(${chainModel})
+	import lombok.experimental.Accessors;
+    #end
 #end
-import com.bm001.entity.BaseForm;
-import com.bm001.annotation.QueryField;
-import java.util.List;
-#end
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * <p>
@@ -29,45 +28,35 @@ import java.util.List;
 #if(${entityLombokModel})
 @Getter
 @Setter
-#if(${chainModel})
-@Accessors(chain = true)
-#end
+    #if(${chainModel})
+	@Accessors(chain = true)
+    #end
 #end
 #if(${swagger})
 @ApiModel(value = "${entity}对象", description = "$!{table.comment}")
 #end
-public class ${formName} extends BaseForm{
+public class ${addVoName} {
 
 ## ----------  BEGIN 字段循环遍历  ----------
 #foreach($field in ${table.fields})
+
     #if("$!field.comment" != "")
-    /**
-     * ${field.comment}
-     */
+	/**
+	 * ${field.comment}
+	 */
     #if(${swagger})
     @ApiModelProperty("${field.comment}")
     #end
     #end
+    #if(${field.propertyName} != "id")
+    #if(${field.propertyName} == "String")
+	    @NotBlank(message = "${field.comment}不能为空")
+    #elseif(${field.propertyName} == "Integer")
+	    @NotNull(message = "${field.comment}不能为空")
+    #end
+    #end
     private ${field.propertyType} ${field.propertyName};
-
-    #if("$!field.propertyName" == "name")
-    @ApiModelProperty(value = "模糊查询名称")
-    private String nameLike;
-    #end
-    #if("$!field.propertyName" == "id")
-	@ApiModelProperty(value = "id集合")
-	private List<$!{field.propertyType}> idList;
-    #end
 #end
-    @QueryField(value="add_time", type =QueryField.QueryType.MIN)
-    @ApiModelProperty(value = "最小添加时间")
-    private Date minAddTime;
-
-    @QueryField(value="add_time", type =QueryField.QueryType.MAX)
-    @ApiModelProperty(value = "最大添加时间")
-    private Date maxAddTime;
-
-
 ## ----------  END 字段循环遍历  ----------
 
 #if(!${entityLombokModel})
@@ -128,4 +117,4 @@ public String toString() {
 		"}";
 		}
 #end
-}
+		}
