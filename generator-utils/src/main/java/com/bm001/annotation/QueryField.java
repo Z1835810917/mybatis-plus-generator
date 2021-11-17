@@ -19,7 +19,7 @@ import lombok.Getter;
 public @interface QueryField {
     String value() default "";
 
-    QueryType type() default QueryType.EQ;
+    QueryType type() ;
 
     enum QueryType {
         EQ(0), LIST(1), LIKE(2), MIN(3), MAX(4);
