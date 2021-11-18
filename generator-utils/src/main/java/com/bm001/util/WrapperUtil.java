@@ -24,14 +24,13 @@ public class WrapperUtil {
 
 	/**
 	 * @param condition
-	 * @param t
 	 * @param <T>
 	 * @return
 	 * @throws Exception
 	 */
-	public static <T> QueryWrapper<T> entityToWrapper(Object condition, Class<T> t, Class<?> query) throws Exception {
+	public static <T> QueryWrapper<T> entityToWrapper(Object condition, Class<?> query) throws Exception {
 		//转换bean
-		BeanUtils.copyProperties(condition,query);
+		BeanUtils.copyProperties(condition, query);
 		// 生成wrapper对象
 		QueryWrapper<T> queryWrapper = new QueryWrapper<>();
 		// 反射出所有变量

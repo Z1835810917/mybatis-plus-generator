@@ -73,7 +73,7 @@ public class ${table.controllerName} {
     @PostMapping("/page")
     @ApiOperation(value = "$!{table.comment}列表", notes = "分页查询")
     public ResponseEntity<IPage<$!{caseModuleName}VO>> page(@RequestBody $!{caseModuleName}Form $!{moduleName}form) {
-		QueryWrapper<${entity}> queryWrapper = WrapperUtil.entityToWrapper(testform, ${entity}.class, $!{caseModuleName}Query.class);
+		QueryWrapper<${entity}> queryWrapper = WrapperUtil.entityToWrapper(testform, $!{caseModuleName}Query.class);
 		//封装分页参数
 		Page<${entity}> pageForm = PageUtils.getPage($!{moduleName}form);
 		IPage<${entity}> page = $!{moduleName}Service.page(pageForm, queryWrapper);
