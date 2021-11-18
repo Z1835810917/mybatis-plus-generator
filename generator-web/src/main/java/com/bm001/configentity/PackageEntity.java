@@ -165,6 +165,12 @@ public class PackageEntity {
 
 	}
 
+	/**
+	 * 封装自定义的文件输出路径拼接
+	 * @param packageName
+	 * @param parentDir
+	 * @return
+	 */
 	private String joinPath(String packageName, String parentDir) {
 		if (StringUtils.isBlank(parentDir)) {
 			parentDir = System.getProperty(ConstVal.JAVA_TMPDIR);

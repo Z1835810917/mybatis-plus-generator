@@ -52,7 +52,7 @@ public class GlobalEntity {
 	 *
 	 * @return
 	 */
-	public GlobalConfig getGolbalConfig() throws Exception {
+	public GlobalConfig getGlobalConfig() throws Exception {
 		String outputDir = this.getOutputDir();
 		if (StringUtils.isBlank(outputDir)) {
 			throw new Exception("输出目录不能为空");

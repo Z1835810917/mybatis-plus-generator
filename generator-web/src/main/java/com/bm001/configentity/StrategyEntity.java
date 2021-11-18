@@ -46,6 +46,8 @@ public class StrategyEntity {
 	}
 
 	/**
+	 * entity配置
+	 *
 	 * @param builder
 	 * @return
 	 */
@@ -65,6 +67,12 @@ public class StrategyEntity {
 		return builder;
 	}
 
+	/**
+	 * controller配置
+	 *
+	 * @param builder
+	 * @return
+	 */
 	private StrategyConfig.Builder getController(StrategyConfig.Builder builder) {
 		builder.controllerBuilder()
 				.enableHyphenStyle()
@@ -73,6 +81,12 @@ public class StrategyEntity {
 		return builder;
 	}
 
+	/**
+	 * Service配置
+	 *
+	 * @param builder
+	 * @return
+	 */
 	private StrategyConfig.Builder getService(StrategyConfig.Builder builder) {
 		builder.serviceBuilder()
 				.formatServiceFileName("%sService")
@@ -80,6 +94,12 @@ public class StrategyEntity {
 		return builder;
 	}
 
+	/**
+	 * mapper配置
+	 *
+	 * @param builder
+	 * @return
+	 */
 	private StrategyConfig.Builder getMapper(StrategyConfig.Builder builder) {
 		builder.mapperBuilder()
 				.enableMapperAnnotation()

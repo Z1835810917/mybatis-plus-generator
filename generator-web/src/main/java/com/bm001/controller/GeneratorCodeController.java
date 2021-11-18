@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * @author: cfn
@@ -35,6 +36,7 @@ public class GeneratorCodeController {
 	 *
 	 * @param generatorCreateVO
 	 */
+	@ApiIgnore
 	@ApiOperation(value = "生成mybatis-plus代码")
 	@PostMapping("/generatorCode")
 	public void generatorCode(@RequestBody GeneratorCreateVO generatorCreateVO) throws Exception {
@@ -62,7 +64,7 @@ public class GeneratorCodeController {
 		//执行自动生成
 		AutoGenerator generator = new AutoGenerator(dataSourceEntity.getDataConfig(new MySqlQuery()));
 		generator.strategy(strategyEntity.getStrategyConfig());
-		generator.global(globalEntity.getGolbalConfig());
+		generator.global(globalEntity.getGlobalConfig());
 		generator.packageInfo(packageEntity.getPageConfig(packageInfo));
 		generator.template(TemplateEntity.getTemplateConfig());
 		generator.execute(new CustomTemplateEntity());
@@ -107,7 +109,7 @@ public class GeneratorCodeController {
 		//执行自动生成
 		AutoGenerator generator = new AutoGenerator(dataSourceEntity.getDataConfig(new MySqlQuery()));
 		generator.strategy(strategyEntity.getStrategyConfig());
-		generator.global(globalEntity.getGolbalConfig());
+		generator.global(globalEntity.getGlobalConfig());
 		generator.packageInfo(packageEntity.getPageConfig(packageInfo));
 		generator.template(TemplateEntity.getTemplateConfig());
 		generator.injection(InjectionEntity.getInjection(generatorCreateVO.getMainPath(), generatorCreateVO.getModuleName()));

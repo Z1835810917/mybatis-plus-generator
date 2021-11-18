@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * @author: cfn
  * @date: 2021/11/16 13:49
- * @description:
+ * @description: 自定义一些form和vo路径
  */
 public class CustomTemplateEntity extends VelocityTemplateEngine{
 

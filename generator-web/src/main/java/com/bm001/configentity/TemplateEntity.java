@@ -10,6 +10,11 @@ import com.baomidou.mybatisplus.generator.config.TemplateType;
  */
 public class TemplateEntity {
 
+	/**
+	 * 模板文件配置
+	 *
+	 * @return
+	 */
 	public static TemplateConfig getTemplateConfig() {
 		return new TemplateConfig.Builder()
 				.disable(TemplateType.ENTITY)

@@ -24,11 +24,13 @@ public class InjectionEntity {
 	public static InjectionConfig getInjection(String parentName, String moduleName) {
 		String caseModuleName = moduleName.substring(0, 1).toUpperCase() + moduleName.substring(1);
 		HashMap<String, String> map = new HashMap<>();
+		//定义一些模板文件
 		map.put(caseModuleName + "Vo.java" , "/templates/vo.java.vm");
 		map.put(caseModuleName + "Form.java" , "/templates/form.java.vm");
 		map.put(caseModuleName + "OperatingVo.java" , "/templates/operatingVo.java.vm");
 		map.put(caseModuleName + "Query.java" , "/templates/query.java.vm");
 		map.put(caseModuleName + "IdForm.java" , "/templates/idForm.java.vm");
+		//定义一些常量
 		HashMap<String, Object> maps = new HashMap<>();
 		maps.put("voName" , caseModuleName + "VO");
 		maps.put("formName" , caseModuleName + "Form");
