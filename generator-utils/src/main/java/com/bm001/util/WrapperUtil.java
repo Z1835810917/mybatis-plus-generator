@@ -3,6 +3,7 @@ package com.bm001.util;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.bm001.annotation.QueryField;
+import org.springframework.beans.BeanUtils;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -21,11 +22,20 @@ public class WrapperUtil {
 
 	private static Pattern humpPattern = Pattern.compile("[A-Z]");
 
-	public static <T> QueryWrapper<T> entityToWrapper(Object condition, Class<T> t) throws Exception {
+	/**
+	 * @param condition
+	 * @param t
+	 * @param <T>
+	 * @return
+	 * @throws Exception
+	 */
+	public static <T> QueryWrapper<T> entityToWrapper(Object condition, Class<T> t, Class<?> query) throws Exception {
+		//转换bean
+		BeanUtils.copyProperties(condition,query);
 		// 生成wrapper对象
 		QueryWrapper<T> queryWrapper = new QueryWrapper<>();
 		// 反射出所有变量
-		Field[] fields = condition.getClass().getDeclaredFields();
+		Field[] fields = query.getClass().getDeclaredFields();
 		for (int i = 0; i < fields.length; i++) {
 			Field field = fields[i];
 			field.setAccessible(true);
@@ -34,15 +44,15 @@ public class WrapperUtil {
 			QueryField annotation = field.getAnnotation(QueryField.class);
 			String colName = annotation.value();
 			//转化条件 1、Entity必须有值 2、必须有QueryField注解
-			if (Objects.nonNull(obj) &&  Objects.nonNull(annotation)  ) {
+			if (Objects.nonNull(obj) && Objects.nonNull(annotation)) {
 				//如果注解的value没有值，就把变量名赋值给colName，再转驼峰成为类名
-				if(StringUtils.isBlank(annotation.value())){
-					colName=fieldName;
+				if (StringUtils.isBlank(annotation.value())) {
+					colName = fieldName;
 				}
 				//注解转化为查询条件
 				switch (annotation.type()) {
 					case EQ:
-						queryWrapper.eq(StringUtils.isNotBlank((CharSequence) obj),  humpToLine(colName), obj);
+						queryWrapper.eq(StringUtils.isNotBlank((CharSequence) obj), humpToLine(colName), obj);
 						break;
 					case LIKE:
 						queryWrapper.like(StringUtils.isNotBlank((CharSequence) obj), humpToLine(colName), obj);

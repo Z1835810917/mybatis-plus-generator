@@ -61,7 +61,7 @@ public class StrategyEntity {
 				.naming(NamingStrategy.underline_to_camel)
 				.columnNaming(NamingStrategy.underline_to_camel)
 				.idType(IdType.AUTO)
-				.formatFileName("%sEntity");
+				.formatFileName("%sBO");
 		return builder;
 	}
 

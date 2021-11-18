@@ -1,5 +1,7 @@
 package ${package.Other}vo;
-
+#foreach($pkg in ${table.importPackages})
+import ${pkg};
+#end
 #if(${swagger})
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -46,11 +48,17 @@ public class ${operatingVoName} {
     @ApiModelProperty("${field.comment}")
     #end
     #end
-    #if(${field.propertyName} != "id")
-    #if(${field.propertyName} == "String")
-	    @NotBlank(message = "${field.comment}不能为空" , groups = UpdateAction.class)
-    #elseif(${field.propertyName} == "Integer")
-	    @NotNull(message = "${field.comment}不能为空" , groups = UpdateAction.class)
+    #if($!{field.propertyName} != "id")
+    #if($!{field.propertyType} == "String")
+    @NotBlank(message = "${field.comment}不能为空")
+    #elseif($!{field.propertyType} == "Integer")
+    @NotNull(message = "${field.comment}不能为空")
+    #end
+    #else
+    #if($!{field.propertyType} == "String")
+    @NotBlank(message = "${field.comment}不能为空" , groups = UpdateAction.class)
+    #elseif($!{field.propertyType} == "Integer")
+    @NotNull(message = "${field.comment}不能为空" , groups = UpdateAction.class)
     #end
     #end
     private ${field.propertyType} ${field.propertyName};

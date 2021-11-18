@@ -16,7 +16,7 @@ import com.bm.center.base.response.ResponseEntity;
 import com.bm001.util.PageUtils;
 import com.bm001.util.CopyMybatisUtils;
 import com.bm001.util.WrapperUtil;
-
+import org.springframework.validation.annotation.Validated;
 #if(${restControllerStyle})
 import org.springframework.web.bind.annotation.RestController;
 #else
@@ -29,9 +29,13 @@ import $!{package.Service}.$!{table.serviceName};
 import ${package.Entity}.${entity};
 import javax.validation.Valid;
 import ${package.Other}form.$!{caseModuleName}Form;
-import ${package.Other}vo.$!{caseModuleName}Vo;
+import ${package.Other}vo.$!{caseModuleName}VO;
+import ${package.Other}query.$!{caseModuleName}Query;
+import ${package.Other}form.$!{caseModuleName}IdForm;
+import ${package.Other}vo.$!{caseModuleName}OperatingVO;
 import lombok.SneakyThrows;
 import java.util.List;
+import com.bm001.validator.UpdateAction;
 /**
  * <p>
  * $!{table.comment} 前端控制器
@@ -68,12 +72,12 @@ public class ${table.controllerName} {
     @SneakyThrows
     @PostMapping("/page")
     @ApiOperation(value = "$!{table.comment}列表", notes = "分页查询")
-    public ResponseEntity<IPage<$!{caseModuleName}Vo>> page(@RequestBody $!{caseModuleName}Form $!{moduleName}form) {
-		QueryWrapper<${entity}> queryWrapper = WrapperUtil.entityToWrapper(testform, ${entity}.class);
+    public ResponseEntity<IPage<$!{caseModuleName}VO>> page(@RequestBody $!{caseModuleName}Form $!{moduleName}form) {
+		QueryWrapper<${entity}> queryWrapper = WrapperUtil.entityToWrapper(testform, ${entity}.class, $!{caseModuleName}Query.class);
 		//封装分页参数
 		Page<${entity}> pageForm = PageUtils.getPage($!{moduleName}form);
-		IPage<${entity}> page = $!{moduleName}Service.listPage(pageForm, queryWrapper);
-		IPage<$!{caseModuleName}Vo> pageVo = CopyMybatisUtils.transfer(page,$!{caseModuleName}Vo.class);
+		IPage<${entity}> page = $!{moduleName}Service.page(pageForm, queryWrapper);
+		IPage<$!{caseModuleName}VO> pageVo = CopyMybatisUtils.transfer(page,$!{caseModuleName}VO.class);
 		return ResUtil.getSuccessResult(pageVo);
     }
 
@@ -88,37 +92,50 @@ public class ${table.controllerName} {
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "id", required = true, value = "ID", paramType = "form"),
 	})
-	public ResponseEntity<$!{caseModuleName}Vo> get(@RequestParam String id) {
-		${entity} bo = $!{moduleName}Service.getById(id);
-		$!{caseModuleName}Vo $!{moduleName}vo =CopyUtil.transfer(bo,$!{caseModuleName}Vo.class);
+	public ResponseEntity<$!{caseModuleName}VO> get(@RequestParam String id) {
+		${entity} $!{table.entityPath} = $!{moduleName}Service.getById(id);
+		$!{caseModuleName}VO $!{moduleName}vo =CopyUtil.transfer($!{table.entityPath},$!{caseModuleName}VO.class);
 		return ResUtil.getSuccessResult($!{moduleName}vo);
 	}
 
 	/**
-	 * $!{table.comment}设置
+	 * $!{table.comment}新增
 	 *
-	 * @param $!{table.entityPath} $!{entity} 对象
+	 * @param $!{moduleName}operatingVo 对象
 	 * @return Result
 	 */
-	@PostMapping("/set")
-	@ApiOperation(value = "$!{table.comment}设置", notes = "$!{table.comment}设置,支持新增或修改")
-	public ResponseEntity set(@Valid @RequestBody $!{entity} $!{table.entityPath}) {
-			return ResUtil.getSuccessResult();
+	@PostMapping("/add")
+	@ApiOperation(value = "$!{table.comment}新增", notes = "$!{table.comment}新增")
+	public ResponseEntity add(@Valid @RequestBody $!{caseModuleName}OperatingVO $!{moduleName}operatingVo) {
+		${entity} $!{table.entityPath} =CopyUtil.transfer($!{moduleName}operatingVo , ${entity}.class);
+		boolean save = $!{moduleName}Service.save($!{table.entityPath});
+		return ResUtil.getSuccessResult(save);
 	}
 
 	/**
+	 * $!{table.comment}修改
+	 *
+	 * @param $!{moduleName}operatingVo 对象
+	 * @return Result
+	 */
+	@PostMapping("/update")
+	@ApiOperation(value = "$!{table.comment}修改", notes = "$!{table.comment}修改")
+	public ResponseEntity update(@Validated(UpdateAction.class) @RequestBody $!{caseModuleName}OperatingVO $!{moduleName}operatingVo ) {
+		${entity} $!{table.entityPath} =CopyUtil.transfer($!{moduleName}operatingVo , ${entity}.class);
+		boolean save = $!{moduleName}Service.updateById($!{table.entityPath});
+		return ResUtil.getSuccessResult(save);
+	}
+	/**
 	 * $!{table.comment}删除
 	 *
-	 * @param ids id字符串，根据,号分隔
+	 * @param $!{moduleName}IdForm  id对象
 	 * @return Result
 	 */
 	@PostMapping("/del")
 	@ApiOperation(value = "$!{table.comment}删除", notes = "$!{table.comment}删除")
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
-	})
-	public ResponseEntity del(@RequestParam String ids) {
-		return ResUtil.getSuccessResult();
+	public ResponseEntity del(@RequestBody $!{caseModuleName}IdForm $!{moduleName}IdForm) {
+		boolean save = testService.removeById($!{moduleName}IdForm.getId());
+		return ResUtil.getSuccessResult(save);
 	}
 
 }

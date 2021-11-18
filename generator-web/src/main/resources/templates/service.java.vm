@@ -19,14 +19,5 @@ interface ${table.serviceName} : ${superServiceClass}<${entity}>
 #else
 public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
 
-	/**
-     * 分页业务方法
-     *
-     * @param page　分页参数
-     * @param queryWrapper　查询参数
-     * @return IPage
-     */
-	IPage<$!{entity}> listPage(Page<${entity}> page,QueryWrapper<${entity}> queryWrapper);
-
 }
 #end

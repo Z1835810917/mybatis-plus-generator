@@ -30,9 +30,9 @@ public class InjectionEntity {
 		map.put(caseModuleName + "Query.java" , "/templates/query.java.vm");
 		map.put(caseModuleName + "IdForm.java" , "/templates/idForm.java.vm");
 		HashMap<String, Object> maps = new HashMap<>();
-		maps.put("voName" , caseModuleName + "Vo");
+		maps.put("voName" , caseModuleName + "VO");
 		maps.put("formName" , caseModuleName + "Form");
-		maps.put("operatingVoName" , caseModuleName + "OperatingVo");
+		maps.put("operatingVoName" , caseModuleName + "OperatingVO");
 		maps.put("queryName" , caseModuleName + "Query");
 		maps.put("idForm" , caseModuleName + "IdForm");
 		return new InjectionConfig.Builder()

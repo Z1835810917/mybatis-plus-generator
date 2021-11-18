@@ -1,5 +1,7 @@
 package ${package.Other}form;
-
+#foreach($pkg in ${table.importPackages})
+import ${pkg};
+#end
 #if(${swagger})
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -65,14 +67,12 @@ public class ${formName} extends BaseForm{
     /**
      * 最小添加时间
      */
-    @QueryField(value="add_time", type =QueryField.QueryType.MIN)
     @ApiModelProperty(value = "最小添加时间")
     private Date minAddTime;
 
     /**
      * 最大添加时间
      */
-    @QueryField(value="add_time", type =QueryField.QueryType.MAX)
     @ApiModelProperty(value = "最大添加时间")
     private Date maxAddTime;
 
