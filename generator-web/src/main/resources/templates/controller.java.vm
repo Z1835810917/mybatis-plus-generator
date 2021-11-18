@@ -14,6 +14,7 @@ import com.bm.center.base.util.ResUtil;
 import com.bm.center.base.util.CopyUtil;
 import com.bm.center.base.response.ResponseEntity;
 import com.bm001.util.PageUtils;
+import com.bm001.util.CopyMybatisUtils;
 import com.bm001.util.WrapperUtil;
 
 #if(${restControllerStyle})
@@ -72,13 +73,7 @@ public class ${table.controllerName} {
 		//封装分页参数
 		Page<${entity}> pageForm = PageUtils.getPage($!{moduleName}form);
 		IPage<${entity}> page = $!{moduleName}Service.listPage(pageForm, queryWrapper);
-		IPage<$!{caseModuleName}Vo> pageVo	=CopyUtil.transfer(page,Page.class);
-		List<${entity}> list =page.getRecords();
-		if (CollectionUtil.isEmpty(list)) {
-		    return ResUtil.getSuccessResult(pageVo);
-		}
-		List<$!{caseModuleName}Vo> $!{moduleName}VoList = CopyUtil.transfer(list, $!{caseModuleName}Vo.class);
-		pageVo.setRecords($!{moduleName}VoList);
+		IPage<$!{caseModuleName}Vo> pageVo = CopyMybatisUtils.transfer(page,$!{caseModuleName}Vo.class);
 		return ResUtil.getSuccessResult(pageVo);
     }
 
