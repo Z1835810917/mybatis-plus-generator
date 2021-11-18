@@ -3,7 +3,6 @@ package com.bm001.configentity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
-import com.bm001.controller.BaseController;
 import com.bm001.entity.BaseBO;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -68,7 +67,6 @@ public class StrategyEntity {
 
 	private StrategyConfig.Builder getController(StrategyConfig.Builder builder) {
 		builder.controllerBuilder()
-				.superClass(BaseController.class)
 				.enableHyphenStyle()
 				.enableRestStyle()
 				.formatFileName("%sController");

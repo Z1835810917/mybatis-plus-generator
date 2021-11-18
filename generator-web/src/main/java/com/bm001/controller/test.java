@@ -62,12 +62,16 @@ public class test {
 				String otherPath = getPathInfo(OutputFile.other);
 				String vo = "Vo";
 				String form = "Form";
+				String query = "Query";
 				customFile.forEach((key, value) -> {
 					if (key.startsWith(vo, key.length() - 7)) {
 						String fileName = String.format((otherPath + "vo" + File.separator + File.separator + "%s"), key);
 						outputFile(new File(fileName), objectMap, value);
 					} else if (key.startsWith(form, key.length() - 9)) {
 						String fileName = String.format((otherPath + "form" + File.separator + File.separator + "%s"), key);
+						outputFile(new File(fileName), objectMap, value);
+					} else if (key.startsWith(query, key.length() - 10)) {
+						String fileName = String.format((otherPath + "query" + File.separator + File.separator + "%s"), key);
 						outputFile(new File(fileName), objectMap, value);
 					}
 				});

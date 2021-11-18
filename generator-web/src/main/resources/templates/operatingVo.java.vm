@@ -1,8 +1,5 @@
 package ${package.Other}vo;
 
-#foreach($pkg in ${table.importPackages})
-import ${pkg};
-#end
 #if(${swagger})
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -16,6 +13,7 @@ import lombok.Setter;
 #end
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import com.bm001.validator.UpdateAction;
 
 /**
  * <p>
@@ -35,7 +33,7 @@ import javax.validation.constraints.NotNull;
 #if(${swagger})
 @ApiModel(value = "${entity}对象", description = "$!{table.comment}")
 #end
-public class ${addVoName} {
+public class ${operatingVoName} {
 
 ## ----------  BEGIN 字段循环遍历  ----------
 #foreach($field in ${table.fields})
@@ -50,9 +48,9 @@ public class ${addVoName} {
     #end
     #if(${field.propertyName} != "id")
     #if(${field.propertyName} == "String")
-	    @NotBlank(message = "${field.comment}不能为空")
+	    @NotBlank(message = "${field.comment}不能为空" , groups = UpdateAction.class)
     #elseif(${field.propertyName} == "Integer")
-	    @NotNull(message = "${field.comment}不能为空")
+	    @NotNull(message = "${field.comment}不能为空" , groups = UpdateAction.class)
     #end
     #end
     private ${field.propertyType} ${field.propertyName};

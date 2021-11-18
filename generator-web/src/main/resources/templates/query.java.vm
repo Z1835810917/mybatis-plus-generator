@@ -1,19 +1,12 @@
-package ${package.Other}form;
+package ${package.Other}query;
 
-#foreach($pkg in ${table.importPackages})
-import ${pkg};
-#end
-#if(${swagger})
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-#end
 #if(${entityLombokModel})
 import lombok.Getter;
 import lombok.Setter;
-    #if(${chainModel})
-	import lombok.experimental.Accessors;
-    #end
-import com.bm001.entity.BaseForm;
+#if(${chainModel})
+import lombok.experimental.Accessors;
+#end
+import com.bm001.entity.BaseQuery;
 import com.bm001.annotation.QueryField;
 import java.util.List;
 #end
@@ -29,11 +22,11 @@ import java.util.List;
 #if(${entityLombokModel})
 @Getter
 @Setter
-    #if(${chainModel})
-	@Accessors(chain = true)
-    #end
+#if(${chainModel})
+@Accessors(chain = true)
 #end
-public class ${formName} extends BaseForm{
+#end
+public class ${queryName} extends BaseQuery{
 
 ## ----------  BEGIN 字段循环遍历  ----------
 #foreach($field in ${table.fields})
@@ -46,22 +39,19 @@ public class ${formName} extends BaseForm{
 	@QueryField(type =QueryField.QueryType.EQ)
     #end
     private ${field.propertyType} ${field.propertyName};
-
-    /**
+    #if("$!field.propertyName" == "name")
+	/**
      * 名称模糊查询
      */
-    #if("$!field.propertyName" == "name")
 	@QueryField(value="id", type = QueryField.QueryType.LIKE)
 	private String nameLike;
-
-    /**
-     * id集合查询
-     */
     #end
     #if("$!field.propertyName" == "id")
+	/**
+     * id集合查询
+     */
 	@QueryField(value="id", type =QueryField.QueryType.LIST)
 	private List<$!{field.propertyType}> idList;
-
     #end
 #end
     /**
@@ -77,7 +67,6 @@ public class ${formName} extends BaseForm{
     private Date maxAddTime;
 
 ## ----------  END 字段循环遍历  ----------
-
 #if(!${entityLombokModel})
     #foreach($field in ${table.fields})
         #if(${field.propertyType.equals("boolean")})
@@ -104,7 +93,6 @@ public class ${formName} extends BaseForm{
     ## --foreach end---
 #end
 ## --end of #if(!${entityLombokModel})--
-
 #if(${entityColumnConstant})
     #foreach($field in ${table.fields})
 	public static final String ${field.name.toUpperCase()} = "${field.name}";

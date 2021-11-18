@@ -1,0 +1,49 @@
+package ${package.Other}form;
+
+#if(${swagger})
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+#end
+#if(${entityLombokModel})
+import lombok.Getter;
+import lombok.Setter;
+#if(${chainModel})
+import lombok.experimental.Accessors;
+#end
+import com.bm001.entity.BaseForm;
+import com.bm001.annotation.QueryField;
+import java.util.List;
+#end
+
+/**
+ * <p>
+ * $!{table.comment}
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+#if(${entityLombokModel})
+@Getter
+@Setter
+#if(${chainModel})
+@Accessors(chain = true)
+#end
+#end
+#if(${swagger})
+@ApiModel(value = "id对象", description = "$!{table.comment}")
+#end
+public class ${idForm} extends BaseForm{
+
+## ----------  BEGIN 字段循环遍历  ----------
+#foreach($field in ${table.fields})
+    #if("$!field.propertyName" == "id")
+	/**
+     * id
+     */
+	@ApiModelProperty(value = "id")
+	private $!{field.propertyType} id;
+    #end
+#end
+## ----------  END 字段循环遍历  ----------
+}

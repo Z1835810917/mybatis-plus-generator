@@ -26,13 +26,15 @@ public class InjectionEntity {
 		HashMap<String, String> map = new HashMap<>();
 		map.put(caseModuleName + "Vo.java" , "/templates/vo.java.vm");
 		map.put(caseModuleName + "Form.java" , "/templates/form.java.vm");
-		map.put(caseModuleName + "Form.java" , "/templates/addVo.java.vm");
-		map.put(caseModuleName + "Form.java" , "/templates/query.java.vm");
+		map.put(caseModuleName + "OperatingVo.java" , "/templates/operatingVo.java.vm");
+		map.put(caseModuleName + "Query.java" , "/templates/query.java.vm");
+		map.put(caseModuleName + "IdForm.java" , "/templates/idForm.java.vm");
 		HashMap<String, Object> maps = new HashMap<>();
 		maps.put("voName" , caseModuleName + "Vo");
-		maps.put("updateVoName" , "update"+caseModuleName + "Vo");
-		maps.put("addVoName" , "add"+caseModuleName + "Vo");
 		maps.put("formName" , caseModuleName + "Form");
+		maps.put("operatingVoName" , caseModuleName + "OperatingVo");
+		maps.put("queryName" , caseModuleName + "Query");
+		maps.put("idForm" , caseModuleName + "IdForm");
 		return new InjectionConfig.Builder()
 				.beforeOutputFile((tableInfo, objectMap) -> {
 					objectMap.put("caseModuleName" , caseModuleName);
