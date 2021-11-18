@@ -57,7 +57,7 @@ public class StrategyEntity {
 				.enableLombok()
 				.enableRemoveIsPrefix()
 				.enableTableFieldAnnotation()
-				.logicDeleteColumnName("deleted")
+				.logicDeleteColumnName("delete_at")
 				.naming(NamingStrategy.underline_to_camel)
 				.columnNaming(NamingStrategy.underline_to_camel)
 				.idType(IdType.AUTO)
