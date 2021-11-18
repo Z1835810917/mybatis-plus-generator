@@ -1,6 +1,6 @@
-package ${package.Service};
+package ${parentName}.service.${moduleName};
 
-import ${package.Entity}.${entity};
+import  ${parentName}.bo.${moduleName}.${entity};
 import ${superServiceClassPackage};
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

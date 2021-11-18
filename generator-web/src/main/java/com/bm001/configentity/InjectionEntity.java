@@ -21,7 +21,7 @@ public class InjectionEntity {
 	 * @param moduleName
 	 * @return
 	 */
-	public static InjectionConfig getInjection(String moduleName) {
+	public static InjectionConfig getInjection(String parentName, String moduleName) {
 		String caseModuleName = moduleName.substring(0, 1).toUpperCase() + moduleName.substring(1);
 		HashMap<String, String> map = new HashMap<>();
 		map.put(caseModuleName + "Vo.java" , "/templates/vo.java.vm");
@@ -35,6 +35,8 @@ public class InjectionEntity {
 		maps.put("operatingVoName" , caseModuleName + "OperatingVO");
 		maps.put("queryName" , caseModuleName + "Query");
 		maps.put("idForm" , caseModuleName + "IdForm");
+		maps.put("moduleName" , moduleName);
+		maps.put("parentName" , parentName);
 		return new InjectionConfig.Builder()
 				.beforeOutputFile((tableInfo, objectMap) -> {
 					objectMap.put("caseModuleName" , caseModuleName);

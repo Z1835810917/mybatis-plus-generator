@@ -104,7 +104,7 @@ public class PackageEntity {
 			map.put(OutputFile.service, joinPath(getUrl(parentName, serviceName), packageInfo.getServiceUrl()));
 		}
 		if (StringUtils.isNotBlank(packageInfo.getServiceImplUrl())) {
-			map.put(OutputFile.serviceImpl, joinPath(getUrl(parentName, getServiceImplName()), packageInfo.getServiceImplUrl()));
+			map.put(OutputFile.serviceImpl, joinPath(getImplUrl(parentName, serviceName, serviceImplName), packageInfo.getServiceImplUrl()));
 		}
 		if (StringUtils.isNotBlank(packageInfo.getMapperUrl())) {
 			map.put(OutputFile.mapper, joinPath(getUrl(parentName, mapperName), packageInfo.getMapperUrl()));
@@ -183,6 +183,16 @@ public class PackageEntity {
 	 * @return
 	 */
 	private String getUrl(String parentName, String moduleName) {
-		return parentName + StringPool.DOT + this.getModuleName() + StringPool.DOT + moduleName;
+		return parentName + StringPool.DOT + moduleName + StringPool.DOT + this.getModuleName();
+	}
+
+	/**
+	 * 获得自定义包名
+	 *
+	 * @param moduleName
+	 * @return
+	 */
+	private String getImplUrl(String parentName, String serviceName, String moduleName) {
+		return parentName + StringPool.DOT + serviceName + StringPool.DOT + this.getModuleName()+StringPool.DOT+ "impl";
 	}
 }

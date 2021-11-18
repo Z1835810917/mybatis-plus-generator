@@ -1,14 +1,9 @@
 package com.bm001.controller;
 
 import com.baomidou.mybatisplus.generator.AutoGenerator;
-import com.baomidou.mybatisplus.generator.config.OutputFile;
-import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.querys.MySqlQuery;
 import com.baomidou.mybatisplus.generator.engine.VelocityTemplateEngine;
 import com.bm001.configentity.*;
-
-import java.io.File;
-import java.util.Map;
 
 /**
  * @author: cfn
@@ -25,7 +20,7 @@ public class test {
 				.setPassword("123456");
 
 		GlobalEntity globalEntity = new GlobalEntity();
-		globalEntity.setOutputDir(System.getProperty("user.dir") + "/generator-cc" + "/src/main/java")
+		globalEntity.setOutputDir(System.getProperty("user.dir"))
 				.setAuthor("cfn")
 				.setSwagger(true);
 
@@ -33,13 +28,12 @@ public class test {
 		packageEntity.setModuleName("test")
 				.setParentName("com.aaa");
 		PackageEntity.PackageInfo packageInfo = new PackageEntity.PackageInfo();
-		packageInfo.setMapperXmlUrl(System.getProperty("user.dir") + "/generator-cc" + "/src/main/resources/mapper");
-		/*packageInfo.setControllerUrl(System.getProperty("user.dir") + "/generator-cc" + "/src/main/java/controller");
-		packageInfo.setEntityUrl(System.getProperty("user.dir") + "/generator-cc" + "/src/main/java/entity");
-		packageInfo.setServiceUrl(System.getProperty("user.dir") + "/generator-cc" + "/src/main/java/service");
-		packageInfo.setMapperUrl(System.getProperty("user.dir") + "/generator-cc" + "/src/main/java/mapper");
-		packageInfo.setServiceImplUrl(System.getProperty("user.dir") + "/generator-cc" + "/src/main/java/sericve/impl");*/
-
+		packageInfo.setMapperXmlUrl(System.getProperty("user.dir") + "/generator-mapper" + "/src/main/resources");
+		packageInfo.setControllerUrl(System.getProperty("user.dir") + "/generator-web1" + "/src/main/java");
+		packageInfo.setEntityUrl(System.getProperty("user.dir") + "/generator-mapper" + "/src/main/java");
+		packageInfo.setServiceUrl(System.getProperty("user.dir") + "/generator-service" + "/src/main/java");
+		packageInfo.setMapperUrl(System.getProperty("user.dir") + "/generator-mapper" + "/src/main/java");
+		packageInfo.setServiceImplUrl(System.getProperty("user.dir") + "/generator-service" + "/src/main/java");
 		StrategyEntity strategyEntity = new StrategyEntity();
 		strategyEntity.setTableName("t_role").setTablePrefix("t_");
 		AutoGenerator generator = new AutoGenerator(dataSourceEntity.getDataConfig(new MySqlQuery()));
@@ -47,36 +41,8 @@ public class test {
 		generator.global(globalEntity.getGolbalConfig());
 		generator.packageInfo(packageEntity.getPageConfig(packageInfo));
 		generator.template(TemplateEntity.getTemplateConfig());
-		generator.injection(InjectionEntity.getInjection("test"));
-		VelocityTemplateEngine velocityTemplateEngine = new VelocityTemplateEngine() {
-			/**
-			 * 输出自定义模板文件
-			 *
-			 * @param customFile 自定义配置模板文件信息
-			 * @param tableInfo  表信息
-			 * @param objectMap  渲染数据
-			 * @since 3.5.1
-			 */
-			@Override
-			protected void outputCustomFile(Map<String, String> customFile, TableInfo tableInfo, Map<String, Object> objectMap) {
-				String otherPath = getPathInfo(OutputFile.other);
-				String vo = "Vo";
-				String form = "Form";
-				String query = "Query";
-				customFile.forEach((key, value) -> {
-					if (key.startsWith(vo, key.length() - 7)) {
-						String fileName = String.format((otherPath + "vo" + File.separator + File.separator + "%s"), key);
-						outputFile(new File(fileName), objectMap, value);
-					} else if (key.startsWith(form, key.length() - 9)) {
-						String fileName = String.format((otherPath + "form" + File.separator + File.separator + "%s"), key);
-						outputFile(new File(fileName), objectMap, value);
-					} else if (key.startsWith(query, key.length() - 10)) {
-						String fileName = String.format((otherPath + "query" + File.separator + File.separator + "%s"), key);
-						outputFile(new File(fileName), objectMap, value);
-					}
-				});
-			}
-		};
+		generator.injection(InjectionEntity.getInjection("com.aaa","test"));
+		VelocityTemplateEngine velocityTemplateEngine = new CustomTemplateUrlEntity();
 		generator.execute(velocityTemplateEngine);
 	}
 }
