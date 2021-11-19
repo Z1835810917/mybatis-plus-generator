@@ -25,4 +25,6 @@ public class MybatisConstant {
 
 	public static final String PATH_QUERY = "query";
 
+	public static final String JAVA_PATH = "/src/main/java";
+
 }

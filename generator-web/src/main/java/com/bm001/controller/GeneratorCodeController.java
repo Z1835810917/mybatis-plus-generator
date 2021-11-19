@@ -2,6 +2,7 @@ package com.bm001.controller;
 
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.config.querys.MySqlQuery;
+import com.bm001.common.MybatisConstant;
 import com.bm001.configentity.*;
 import com.bm001.vo.GeneratorCreateVO;
 import com.bm001.vo.GeneratorCustomCreateVO;
@@ -78,6 +79,7 @@ public class GeneratorCodeController {
 	@ApiOperation(value = "生成mybatis-plus代码")
 	@PostMapping("/generatorCustomCode")
 	public void generatorCustomCode(@RequestBody GeneratorCustomCreateVO generatorCreateVO) throws Exception {
+		String outputDir = generatorCreateVO.getOutputDir();
 		//数据库配置
 		DataSourceEntity dataSourceEntity = new DataSourceEntity();
 		dataSourceEntity.setDataUrl(dataUrl)
@@ -86,22 +88,21 @@ public class GeneratorCodeController {
 				.setPassword(password);
 		//全局配置
 		GlobalEntity globalEntity = new GlobalEntity();
-		globalEntity.setOutputDir(generatorCreateVO.getOutputDir() + "/src/main/java")
+		globalEntity.setOutputDir(outputDir)
 				.setAuthor(generatorCreateVO.getAuthor())
 				.setSwagger(true);
 		//包名配置
 		PackageEntity packageEntity = new PackageEntity();
 		packageEntity.setModuleName(generatorCreateVO.getModuleName())
 				.setParentName(generatorCreateVO.getMainPath());
-		String outputDir = generatorCreateVO.getOutputDir();
 		String mainPageName = generatorCreateVO.getMainPageName();
 		PackageEntity.PackageInfo packageInfo = new PackageEntity.PackageInfo();
 		packageInfo.setMapperXmlUrl(outputDir + "/" + mainPageName + "-mapper" + "/src/main/resources");
-		packageInfo.setControllerUrl(outputDir + "/" + mainPageName + "-web" + "/src/main/java");
-		packageInfo.setEntityUrl(outputDir + "/" + mainPageName + "-mapper" + "/src/main/java");
-		packageInfo.setServiceUrl(outputDir + "/" + mainPageName + "-service" + "/src/main/java");
-		packageInfo.setMapperUrl(outputDir + "/" + mainPageName + "-mapper" + "/src/main/java");
-		packageInfo.setServiceImplUrl(outputDir + "/" + mainPageName + "-service" + "/src/main/java");
+		packageInfo.setControllerUrl(outputDir + "/" + mainPageName + "-web" + MybatisConstant.JAVA_PATH);
+		packageInfo.setEntityUrl(outputDir + "/" + mainPageName + "-mapper" + MybatisConstant.JAVA_PATH);
+		packageInfo.setServiceUrl(outputDir + "/" + mainPageName + "-service" + MybatisConstant.JAVA_PATH);
+		packageInfo.setMapperUrl(outputDir + "/" + mainPageName + "-mapper" +  MybatisConstant.JAVA_PATH);
+		packageInfo.setServiceImplUrl(outputDir + "/" + mainPageName + "-service" +  MybatisConstant.JAVA_PATH);
 		//策略配置
 		StrategyEntity strategyEntity = new StrategyEntity();
 		strategyEntity.setTableName(generatorCreateVO.getTableName())
