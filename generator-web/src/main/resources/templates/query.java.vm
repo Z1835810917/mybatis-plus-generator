@@ -45,7 +45,7 @@ public class ${queryName} extends BaseQuery{
 	/**
      * 名称模糊查询
      */
-	@QueryField(value="id", type = QueryField.QueryType.LIKE)
+	@QueryField(value="name", type = QueryField.QueryType.LIKE)
 	private String nameLike;
     #end
     #if("$!field.propertyName" == "id")
