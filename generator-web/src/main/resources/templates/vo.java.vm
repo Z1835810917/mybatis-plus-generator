@@ -32,7 +32,7 @@ import lombok.Setter;
 #if(${swagger})
 @ApiModel(value = "${entity}对象", description = "$!{table.comment}")
 #end
-public class ${voName} {
+public class ${voPageName} {
 
 ## ----------  BEGIN 字段循环遍历  ----------
 #foreach($field in ${table.fields})

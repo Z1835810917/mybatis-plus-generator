@@ -1,6 +1,7 @@
 package com.bm001.configentity;
 
 import com.baomidou.mybatisplus.generator.config.InjectionConfig;
+import com.bm001.common.MybatisConstant;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,14 +31,16 @@ public class InjectionEntity {
 		map.put(caseModuleName + "OperatingVo.java" , "/templates/operatingVo.java.vm");
 		map.put(caseModuleName + "Query.java" , "/templates/query.java.vm");
 		map.put(caseModuleName + "IdForm.java" , "/templates/idForm.java.vm");
-		//定义一些常量
+		//定义一些包名常量
 		HashMap<String, Object> maps = new HashMap<>();
-		maps.put("voName" , caseModuleName + "VO");
-		maps.put("formName" , caseModuleName + "Form");
-		maps.put("operatingVoName" , caseModuleName + "OperatingVO");
-		maps.put("queryName" , caseModuleName + "Query");
-		maps.put("idForm" , caseModuleName + "IdForm");
+		maps.put("voPageName" , caseModuleName + MybatisConstant.PROJECT_VO);
+		maps.put("formPageName" , caseModuleName + MybatisConstant.PROJECT_FORM);
+		maps.put("operatingVoPageName" , caseModuleName + MybatisConstant.PROJECT_OPERATING_VO);
+		maps.put("queryPageName" , caseModuleName + MybatisConstant.PROJECT_QUERY);
+		maps.put("idFormPageName" , caseModuleName + MybatisConstant.PROJECT_ID_FORM);
+		//模块名
 		maps.put("moduleName" , moduleName);
+		//包路径
 		maps.put("parentName" , parentName);
 		return new InjectionConfig.Builder()
 				.beforeOutputFile((tableInfo, objectMap) -> {

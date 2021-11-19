@@ -28,7 +28,7 @@ import java.util.List;
 @Accessors(chain = true)
 #end
 #end
-public class ${queryName} extends BaseQuery{
+public class ${queryPageName} extends BaseQuery{
 
 ## ----------  BEGIN 字段循环遍历  ----------
 #foreach($field in ${table.fields})
