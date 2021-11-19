@@ -27,7 +27,7 @@ import springfox.documentation.annotations.ApiIgnore;
 public class GeneratorCodeController {
 
 
-	private static final String dataUrl = "jdbc:mysql://172.19.70.38:3306/mybatis-plus?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC";
+	private static final String dataUrl = "jdbc:mysql://172.19.70.38:3306/supdb?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC";
 	private static final String userName = "root";
 	private static final String password = "123456";
 
