@@ -28,7 +28,7 @@ public class CustomTemplateUrlEntity extends VelocityTemplateEngine {
 		String voUrl = StringUtils.replace(getPathInfo(OutputFile.controller), "/controller/" , "/vo/");
 		String formUrl = StringUtils.replace(getPathInfo(OutputFile.controller), "/controller/" , "/form/");
 		String serviceUrl = StringUtils.replace(getPathInfo(OutputFile.service), "/service/" , "/query/");
-		String vo = "Vo";
+		String vo = "VO";
 		String form = "Form";
 		String query = "Query";
 		//遍历输出
