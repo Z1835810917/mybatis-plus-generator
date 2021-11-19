@@ -44,7 +44,7 @@ public class WrapperUtil {
 			String colName = annotation.value();
 			//转化条件 1、Entity必须有值 2、必须有QueryField注解
 			if (Objects.nonNull(obj) && Objects.nonNull(annotation)) {
-				//如果注解的value没有值，就把变量名赋值给colName，再转驼峰成为类名
+				//如果注解的value没有值，就把变量名赋值给colName，再转驼峰成为列名
 				if (StringUtils.isBlank(annotation.value())) {
 					colName = fieldName;
 				}
