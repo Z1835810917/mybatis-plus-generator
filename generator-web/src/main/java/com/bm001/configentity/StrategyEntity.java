@@ -1,13 +1,19 @@
 package com.bm001.configentity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.generator.IFill;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.builder.Entity;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
-import com.bm001.entity.BaseBO;
+import com.baomidou.mybatisplus.generator.fill.Column;
+import com.bm001.entity.BaseDO;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.apache.commons.lang3.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author: cfn
@@ -43,7 +49,7 @@ public class StrategyEntity {
 				.enableCapitalMode()
 				.enableSkipView()
 				.disableSqlFilter()
-				.addInclude(tableName);
+				.addInclude(this.getTableName());
 		if(StringUtils.isNotBlank(this.getTablePrefix())){
 			builder.addTablePrefix(this.getTablePrefix());
 		}
@@ -61,6 +67,14 @@ public class StrategyEntity {
 	 * @return
 	 */
 	private StrategyConfig.Builder getEntity(StrategyConfig.Builder builder) {
+		//添加填充字段
+		List<IFill> tableFillList =new ArrayList<>();
+		Column add= new Column("add_time", FieldFill.INSERT);
+		Column opt= new Column("opt_time", FieldFill.UPDATE);
+		Column deletd= new Column("delete_at", FieldFill.UPDATE);
+		tableFillList.add(add);
+		tableFillList.add(opt);
+		tableFillList.add(deletd);
 		Entity.Builder entityBuilder = builder.entityBuilder();
 		entityBuilder.disableSerialVersionUID()
 				.enableChainModel()
@@ -71,9 +85,10 @@ public class StrategyEntity {
 				.naming(NamingStrategy.underline_to_camel)
 				.columnNaming(NamingStrategy.underline_to_camel)
 				.idType(IdType.AUTO)
+				.addTableFills(tableFillList)
 				.formatFileName("%sBO");
 		if(this.getBaseEntity()){
-			entityBuilder.superClass(BaseBO.class);
+			entityBuilder.superClass(BaseDO.class);
 		}
 		return builder;
 	}

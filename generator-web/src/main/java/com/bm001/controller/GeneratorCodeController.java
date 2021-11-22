@@ -10,6 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -85,7 +86,7 @@ public class GeneratorCodeController {
 	 */
 	@ApiOperation(value = "生成mybatis-plus代码")
 	@PostMapping("/generatorCustomCode")
-	public void generatorCustomCode(@RequestBody GeneratorCustomCreateVO generatorCreateVO) throws Exception {
+	public void generatorCustomCode(@Validated @RequestBody GeneratorCustomCreateVO generatorCreateVO) throws Exception {
 		String outputDir = generatorCreateVO.getOutputDir();
 		String jdbc = "jdbc:mysql:"+generatorCreateVO.getDbUrl()+"/"+generatorCreateVO.getSchemaName()+"?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC";
 		//数据库配置
@@ -100,10 +101,10 @@ public class GeneratorCodeController {
 				.setAuthor(generatorCreateVO.getAuthor())
 				.setSwagger(true);
 		//包名配置
-		String tableName = generatorCreateVO.getTableName().substring(2);
-		String tablefix = generatorCreateVO.getTableName().substring(0,2);
+		String tableName = generatorCreateVO.getTableName();
+		String moduleName = tableName.substring(2);
 		PackageEntity packageEntity = new PackageEntity();
-		packageEntity.setModuleName(lineToHump(tableName).toLowerCase())
+		packageEntity.setModuleName(lineToHump(moduleName).toLowerCase())
 				.setParentName(generatorCreateVO.getMainPath());
 		String mainPageName = generatorCreateVO.getMainPageName();
 		PackageEntity.PackageInfo packageInfo = new PackageEntity.PackageInfo();
@@ -114,8 +115,9 @@ public class GeneratorCodeController {
 		packageInfo.setMapperUrl(outputDir + "/" + mainPageName + "-mapper" + MybatisConstant.JAVA_PATH);
 		packageInfo.setServiceImplUrl(outputDir + "/" + mainPageName + "-service" + MybatisConstant.JAVA_PATH);
 		//策略配置
+		String tablefix = tableName.substring(0,2);
 		StrategyEntity strategyEntity = new StrategyEntity();
-		strategyEntity.setTableName(generatorCreateVO.getTableName())
+		strategyEntity.setTableName(tableName)
 				.setTablePrefix(tablefix)
 				.setBaseEntity(generatorCreateVO.getBaseEntity());
 		//执行自动生成
@@ -124,7 +126,7 @@ public class GeneratorCodeController {
 		generator.global(globalEntity.getGlobalConfig());
 		generator.packageInfo(packageEntity.getPageConfig(packageInfo));
 		generator.template(TemplateEntity.getTemplateConfig());
-		generator.injection(InjectionEntity.getInjection(generatorCreateVO.getMainPath(), tableName));
+		generator.injection(InjectionEntity.getInjection(generatorCreateVO.getMainPath(), moduleName));
 		generator.execute(new CustomTemplateUrlEntity());
 	}
 

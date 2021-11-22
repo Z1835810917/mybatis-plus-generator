@@ -13,7 +13,7 @@ import java.util.Date;
  * @description:
  */
 @Data
-public class BaseBO {
+public class BaseDO {
 
 	/**
 	 * 添加人编号

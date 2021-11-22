@@ -18,18 +18,21 @@ public class GeneratorCustomCreateVO {
 	/**
 	 * 数据库路径
 	 */
+	@NotBlank(message = " 数据库路径不能为空")
 	@ApiModelProperty("数据库路径")
 	private String dbUrl;
 
 	/**
 	 * 数据库用户名
 	 */
+	@NotBlank(message = " 数据库用户名不能为空")
 	@ApiModelProperty("数据库用户名")
 	private String dbUserName;
 
 	/**
 	 * 数据库密码
 	 */
+	@NotBlank(message = "数据库密码不能为空")
 	@ApiModelProperty("数据库密码")
 	private String dbPassword;
 
