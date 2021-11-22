@@ -9,7 +9,7 @@ public class MybatisConstant {
 
 	public static final String PROJECT_VO = "VO";
 
-	public static final String PROJECT_OPERATING_VO = "OperatingVO";
+	public static final String PROJECT_OPERATING_VO = "SaveForm";
 
 	public static final String PROJECT_ID_FORM = "IdForm";
 

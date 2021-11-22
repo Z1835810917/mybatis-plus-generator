@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * @author: cfn
  * @date: 2021/11/12 16:59
@@ -29,8 +32,12 @@ public class GeneratorCodeController {
 
 
 	private static final String dataUrl = "jdbc:mysql://172.19.70.38:3306/%s?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC";
+
 	private static final String userName = "root";
+
 	private static final String password = "123456";
+
+	private static Pattern linePattern = Pattern.compile("_(\\w)");
 
 	/**
 	 * 生成mybatis-plus代码
@@ -80,20 +87,23 @@ public class GeneratorCodeController {
 	@PostMapping("/generatorCustomCode")
 	public void generatorCustomCode(@RequestBody GeneratorCustomCreateVO generatorCreateVO) throws Exception {
 		String outputDir = generatorCreateVO.getOutputDir();
+		String jdbc = "jdbc:mysql:"+generatorCreateVO.getDbUrl()+"/"+generatorCreateVO.getSchemaName()+"?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC";
 		//数据库配置
 		DataSourceEntity dataSourceEntity = new DataSourceEntity();
-		dataSourceEntity.setDataUrl(String.format(dataUrl, generatorCreateVO.getSchemaName()))
-				.setUserName(userName)
+		dataSourceEntity.setDataUrl(jdbc)
+				.setUserName(generatorCreateVO.getDbUserName())
 				.setSchemaName(generatorCreateVO.getSchemaName())
-				.setPassword(password);
+				.setPassword(generatorCreateVO.getDbPassword());
 		//全局配置
 		GlobalEntity globalEntity = new GlobalEntity();
 		globalEntity.setOutputDir(outputDir)
 				.setAuthor(generatorCreateVO.getAuthor())
 				.setSwagger(true);
 		//包名配置
+		String tableName = generatorCreateVO.getTableName().substring(2);
+		String tablefix = generatorCreateVO.getTableName().substring(0,2);
 		PackageEntity packageEntity = new PackageEntity();
-		packageEntity.setModuleName(generatorCreateVO.getModuleName().toLowerCase())
+		packageEntity.setModuleName(lineToHump(tableName).toLowerCase())
 				.setParentName(generatorCreateVO.getMainPath());
 		String mainPageName = generatorCreateVO.getMainPageName();
 		PackageEntity.PackageInfo packageInfo = new PackageEntity.PackageInfo();
@@ -106,7 +116,7 @@ public class GeneratorCodeController {
 		//策略配置
 		StrategyEntity strategyEntity = new StrategyEntity();
 		strategyEntity.setTableName(generatorCreateVO.getTableName())
-				.setTablePrefix(generatorCreateVO.getTablePrefix())
+				.setTablePrefix(tablefix)
 				.setBaseEntity(generatorCreateVO.getBaseEntity());
 		//执行自动生成
 		AutoGenerator generator = new AutoGenerator(dataSourceEntity.getDataConfig(new MySqlQuery()));
@@ -114,8 +124,20 @@ public class GeneratorCodeController {
 		generator.global(globalEntity.getGlobalConfig());
 		generator.packageInfo(packageEntity.getPageConfig(packageInfo));
 		generator.template(TemplateEntity.getTemplateConfig());
-		generator.injection(InjectionEntity.getInjection(generatorCreateVO.getMainPath(), generatorCreateVO.getModuleName()));
+		generator.injection(InjectionEntity.getInjection(generatorCreateVO.getMainPath(), tableName));
 		generator.execute(new CustomTemplateUrlEntity());
+	}
+
+	/** 下划线转驼峰 */
+	private  String lineToHump(String str) {
+		str = str.toLowerCase();
+		Matcher matcher = linePattern.matcher(str);
+		StringBuffer sb = new StringBuffer();
+		while (matcher.find()) {
+			matcher.appendReplacement(sb, matcher.group(1).toUpperCase());
+		}
+		matcher.appendTail(sb);
+		return sb.toString();
 	}
 }
 

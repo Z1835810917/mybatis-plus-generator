@@ -1,4 +1,4 @@
-package ${parentName}.vo.${modulePageName};
+package ${parentName}.form.${modulePageName};
 #foreach($pkg in ${table.importPackages})
 import ${pkg};
 #end
@@ -48,16 +48,10 @@ public class ${operatingVoPageName} {
     @ApiModelProperty("${field.comment}")
     #end
     #end
-    #if($!{field.propertyName} != "id")
-    #if($!{field.propertyType} == "String")
-    @NotBlank(message = "${field.comment}不能为空")
-    #elseif($!{field.propertyType} == "Integer")
-    @NotNull(message = "${field.comment}不能为空")
-    #end
-    #else
+    #if($!{field.propertyName} == "id")
     #if($!{field.propertyType} == "String")
     @NotBlank(message = "${field.comment}不能为空" , groups = UpdateAction.class)
-    #elseif($!{field.propertyType} == "Integer")
+    #else
     @NotNull(message = "${field.comment}不能为空" , groups = UpdateAction.class)
     #end
     #end

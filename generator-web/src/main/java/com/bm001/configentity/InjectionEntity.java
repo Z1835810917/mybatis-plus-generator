@@ -28,7 +28,7 @@ public class InjectionEntity {
 		//定义一些模板文件
 		map.put(caseModuleName + "VO.java" , "/templates/vo.java.vm");
 		map.put(caseModuleName + "Form.java" , "/templates/form.java.vm");
-		map.put(caseModuleName + "OperatingVO.java" , "/templates/operatingVo.java.vm");
+		map.put(caseModuleName + "SaveForm.java" , "/templates/operatingVo.java.vm");
 		map.put(caseModuleName + "Query.java" , "/templates/query.java.vm");
 		map.put(caseModuleName + "IdForm.java" , "/templates/idForm.java.vm");
 		//定义一些包名常量

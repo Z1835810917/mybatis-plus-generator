@@ -72,7 +72,7 @@ public class StrategyEntity {
 				.columnNaming(NamingStrategy.underline_to_camel)
 				.idType(IdType.AUTO)
 				.formatFileName("%sBO");
-		if(this.baseEntity){
+		if(this.getBaseEntity()){
 			entityBuilder.superClass(BaseBO.class);
 		}
 		return builder;
@@ -116,7 +116,7 @@ public class StrategyEntity {
 				.enableMapperAnnotation()
 				.enableBaseResultMap()
 				.enableBaseColumnList()
-				.formatMapperFileName("%sDao")
+				.formatMapperFileName("%sMapper")
 				.formatXmlFileName("%sXml");
 		return builder;
 	}

@@ -26,13 +26,13 @@ import org.springframework.stereotype.Controller;
 import ${superControllerClassPackage};
 #end
 import ${parentName}.service.${modulePageName}.$!{table.serviceName};
-import ${parentName}.bo.${modulePageName}.${entity};
+import ${parentName}.entity.${modulePageName}.${entity};
 import javax.validation.Valid;
 import  ${parentName}.form.${modulePageName}.$!{formPageName};
 import ${parentName}.vo.${modulePageName}.$!{voPageName};
 import  ${parentName}.query.${modulePageName}.$!{queryPageName};
 import  ${parentName}.form.${modulePageName}.$!{idFormPageName};
-import ${parentName}.vo.${modulePageName}.$!{operatingVoPageName};
+import ${parentName}.form.${modulePageName}.$!{operatingVoPageName};
 import lombok.SneakyThrows;
 import java.util.List;
 import com.bm001.validator.UpdateAction;
@@ -98,13 +98,13 @@ public class ${table.controllerName} {
 	/**
 	 * $!{table.comment}新增
 	 *
-	 * @param $!{moduleName}operatingVo 对象
+	 * @param $!{moduleName}saveForm 对象
 	 * @return Result
 	 */
 	@PostMapping("/add")
 	@ApiOperation(value = "$!{table.comment}新增", notes = "$!{table.comment}新增")
-	public ResponseEntity add(@Valid @RequestBody $!{caseModuleName}OperatingVO $!{moduleName}operatingVo) {
-		${entity} $!{table.entityPath} =CopyUtil.transfer($!{moduleName}operatingVo , ${entity}.class);
+	public ResponseEntity add(@Validated() @RequestBody $!{caseModuleName}SaveForm $!{moduleName}saveForm) {
+		${entity} $!{table.entityPath} =CopyUtil.transfer($!{moduleName}saveForm , ${entity}.class);
 		boolean save = $!{moduleName}Service.save($!{table.entityPath});
 		return ResUtil.getSuccessResult(save);
 	}
@@ -112,13 +112,13 @@ public class ${table.controllerName} {
 	/**
 	 * $!{table.comment}修改
 	 *
-	 * @param $!{moduleName}operatingVo 对象
+	 * @param $!{moduleName}saveForm 对象
 	 * @return Result
 	 */
 	@PostMapping("/update")
 	@ApiOperation(value = "$!{table.comment}修改", notes = "$!{table.comment}修改")
-	public ResponseEntity update(@Validated(UpdateAction.class) @RequestBody $!{caseModuleName}OperatingVO $!{moduleName}operatingVo ) {
-		${entity} $!{table.entityPath} =CopyUtil.transfer($!{moduleName}operatingVo , ${entity}.class);
+	public ResponseEntity update(@Validated(UpdateAction.class) @RequestBody $!{caseModuleName}SaveForm $!{moduleName}saveForm ) {
+		${entity} $!{table.entityPath} =CopyUtil.transfer($!{moduleName}saveForm , ${entity}.class);
 		boolean save = $!{moduleName}Service.updateById($!{table.entityPath});
 		return ResUtil.getSuccessResult(save);
 	}

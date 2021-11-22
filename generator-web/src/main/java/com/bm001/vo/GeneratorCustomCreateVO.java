@@ -16,6 +16,24 @@ import javax.validation.constraints.NotBlank;
 public class GeneratorCustomCreateVO {
 
 	/**
+	 * 数据库路径
+	 */
+	@ApiModelProperty("数据库路径")
+	private String dbUrl;
+
+	/**
+	 * 数据库用户名
+	 */
+	@ApiModelProperty("数据库用户名")
+	private String dbUserName;
+
+	/**
+	 * 数据库密码
+	 */
+	@ApiModelProperty("数据库密码")
+	private String dbPassword;
+
+	/**
 	 * 数据库库名
 	 */
 	@NotBlank(message = "数据库库名不能为空")
@@ -44,13 +62,6 @@ public class GeneratorCustomCreateVO {
 	private String mainPageName;
 
 	/**
-	 * 模块名称
-	 */
-	@NotBlank(message = "模块名称不能为空")
-	@ApiModelProperty("模块名称")
-	private String moduleName;
-
-	/**
 	 * 作者名
 	 */
 	@ApiModelProperty("作者名")
@@ -60,19 +71,13 @@ public class GeneratorCustomCreateVO {
 	 * 表名
 	 */
 	@NotBlank(message = "表名不能为空")
-	@ApiModelProperty("表名")
+	@ApiModelProperty(value = "表名", required = true, notes = "表名前缀最多一个字符")
 	private String tableName;
-
-	/**
-	 * 表前缀
-	 */
-	@ApiModelProperty("表前缀")
-	private String tablePrefix;
 
 	/**
 	 * 是否需要父类
 	 */
 	@ApiModelProperty("是否需要父类")
-	private Boolean baseEntity = true;
+	private Boolean baseEntity = false;
 
 }

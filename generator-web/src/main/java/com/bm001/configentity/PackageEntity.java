@@ -78,7 +78,7 @@ public class PackageEntity {
 		String mapperName = StringUtils.isNotBlank(this.getMapperName()) ? this.getMapperName() : "mapper";
 		String mapperXmlName = StringUtils.isNotBlank(this.getMapperName()) ? this.getXmlMame() : "mapper.xml";
 		String controllerName = StringUtils.isNotBlank(this.getControllerName()) ? this.getControllerName() : "controller";
-		String entityName = StringUtils.isNotBlank(this.getEntityName()) ? this.getEntityName() : "bo";
+		String entityName = StringUtils.isNotBlank(this.getEntityName()) ? this.getEntityName() : "entity";
 		String otherName = "";
 
 		//封装包配置路径

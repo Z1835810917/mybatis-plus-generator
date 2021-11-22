@@ -13,6 +13,9 @@ import lombok.experimental.Accessors;
 import com.bm001.entity.BaseForm;
 import com.bm001.annotation.QueryField;
 import java.util.List;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 #end
 
 /**
@@ -42,6 +45,11 @@ public class ${idFormPageName} extends BaseForm{
      * id
      */
 	@ApiModelProperty(value = "id")
+#if($!{field.propertyType} == "String")
+    @NotBlank(message = "${field.comment}不能为空")
+#else
+    @NotNull(message = "${field.comment}不能为空")
+#end
 	private $!{field.propertyType} id;
     #end
 #end

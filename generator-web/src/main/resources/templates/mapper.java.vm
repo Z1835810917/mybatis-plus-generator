@@ -1,6 +1,6 @@
 package ${parentName}.mapper.${modulePageName};
 
-import  ${parentName}.bo.${modulePageName}.${entity};
+import  ${parentName}.entity.${modulePageName}.${entity};
 import ${superMapperClassPackage};
 import org.mapstruct.Mapper;
 /**
