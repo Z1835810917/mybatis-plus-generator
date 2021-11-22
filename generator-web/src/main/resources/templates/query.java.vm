@@ -57,6 +57,7 @@ public class ${queryPageName} extends BaseQuery{
 	private List<$!{field.propertyType}> idList;
     #end
 #end
+#if("$!field.propertyName" == "addTime")
     /**
      * 最小时间
      */
@@ -68,7 +69,7 @@ public class ${queryPageName} extends BaseQuery{
      */
     @QueryField(value="add_time", type =QueryField.QueryType.MAX)
     private Date maxAddTime;
-
+#end
 ## ----------  END 字段循环遍历  ----------
 #if(!${entityLombokModel})
     #foreach($field in ${table.fields})

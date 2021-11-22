@@ -2,6 +2,7 @@ package com.bm001.configentity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
+import com.baomidou.mybatisplus.generator.config.builder.Entity;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.bm001.entity.BaseBO;
 import lombok.Data;
@@ -26,6 +27,11 @@ public class StrategyEntity {
 	 * 过滤表名前缀
 	 */
 	private String tablePrefix;
+
+	/**
+	 * 是否需要父类
+	 */
+	private  Boolean baseEntity;
 
 	/**
 	 * 获得策略配置
@@ -55,9 +61,8 @@ public class StrategyEntity {
 	 * @return
 	 */
 	private StrategyConfig.Builder getEntity(StrategyConfig.Builder builder) {
-		builder.entityBuilder()
-				.superClass(BaseBO.class)
-				.disableSerialVersionUID()
+		Entity.Builder entityBuilder = builder.entityBuilder();
+		entityBuilder.disableSerialVersionUID()
 				.enableChainModel()
 				.enableLombok()
 				.enableRemoveIsPrefix()
@@ -67,6 +72,9 @@ public class StrategyEntity {
 				.columnNaming(NamingStrategy.underline_to_camel)
 				.idType(IdType.AUTO)
 				.formatFileName("%sBO");
+		if(this.baseEntity){
+			entityBuilder.superClass(BaseBO.class);
+		}
 		return builder;
 	}
 

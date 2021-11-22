@@ -69,4 +69,10 @@ public class GeneratorCustomCreateVO {
 	@ApiModelProperty("表前缀")
 	private String tablePrefix;
 
+	/**
+	 * 是否需要父类
+	 */
+	@ApiModelProperty("是否需要父类")
+	private Boolean baseEntity = true;
+
 }

@@ -65,6 +65,7 @@ public class ${formPageName} extends BaseForm{
 	private List<$!{field.propertyType}> idList;
     #end
 #end
+#if("$!field.propertyName" == "add_time")
     /**
      * 最小添加时间
      */
@@ -76,7 +77,7 @@ public class ${formPageName} extends BaseForm{
      */
     @ApiModelProperty(value = "最大添加时间")
     private Date maxAddTime;
-
+#end
 ## ----------  END 字段循环遍历  ----------
 
 #if(!${entityLombokModel})

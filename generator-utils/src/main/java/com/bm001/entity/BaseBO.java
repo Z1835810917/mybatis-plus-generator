@@ -52,7 +52,7 @@ public class BaseBO {
 	private Date optTime;
 
 	/**
-	 * 删除时间
+	 * 删除
 	 */
 	@TableLogic
 	@TableField(value = "delete_at", fill = FieldFill.INSERT)

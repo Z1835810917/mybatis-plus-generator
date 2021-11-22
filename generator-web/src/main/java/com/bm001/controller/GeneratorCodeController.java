@@ -98,7 +98,7 @@ public class GeneratorCodeController {
 		String mainPageName = generatorCreateVO.getMainPageName();
 		PackageEntity.PackageInfo packageInfo = new PackageEntity.PackageInfo();
 		packageInfo.setMapperXmlUrl(outputDir + "/" + mainPageName + "-mapper" + "/src/main/resources");
-		packageInfo.setControllerUrl(outputDir + "/" + mainPageName + "-web1" + MybatisConstant.JAVA_PATH);
+		packageInfo.setControllerUrl(outputDir + "/" + mainPageName + "-web" + MybatisConstant.JAVA_PATH);
 		packageInfo.setEntityUrl(outputDir + "/" + mainPageName + "-mapper" + MybatisConstant.JAVA_PATH);
 		packageInfo.setServiceUrl(outputDir + "/" + mainPageName + "-service" + MybatisConstant.JAVA_PATH);
 		packageInfo.setMapperUrl(outputDir + "/" + mainPageName + "-mapper" + MybatisConstant.JAVA_PATH);
@@ -106,7 +106,8 @@ public class GeneratorCodeController {
 		//策略配置
 		StrategyEntity strategyEntity = new StrategyEntity();
 		strategyEntity.setTableName(generatorCreateVO.getTableName())
-				.setTablePrefix(generatorCreateVO.getTablePrefix());
+				.setTablePrefix(generatorCreateVO.getTablePrefix())
+				.setBaseEntity(generatorCreateVO.getBaseEntity());
 		//执行自动生成
 		AutoGenerator generator = new AutoGenerator(dataSourceEntity.getDataConfig(new MySqlQuery()));
 		generator.strategy(strategyEntity.getStrategyConfig());
