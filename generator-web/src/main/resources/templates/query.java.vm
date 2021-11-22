@@ -1,4 +1,4 @@
-package ${parentName}.query.${moduleName};
+package ${parentName}.query.${modulePageName};
 #foreach($pkg in ${table.importPackages})
 import ${pkg};
 #end

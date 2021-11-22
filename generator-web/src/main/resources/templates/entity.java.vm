@@ -1,4 +1,4 @@
-package ${parentName}.bo.${moduleName};
+package ${parentName}.bo.${modulePageName};
 
 #foreach($pkg in ${table.importPackages})
 import ${pkg};

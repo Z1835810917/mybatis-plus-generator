@@ -1,8 +1,8 @@
-package ${parentName}.service.${moduleName}.impl;
+package ${parentName}.service.${modulePageName}.impl;
 
-import  ${parentName}.bo.${moduleName}.${entity};
-import ${parentName}.mapper.${moduleName}.${table.mapperName};
-import  ${parentName}.service.${moduleName}.${table.serviceName};
+import  ${parentName}.bo.${modulePageName}.${entity};
+import ${parentName}.mapper.${modulePageName}.${table.mapperName};
+import  ${parentName}.service.${modulePageName}.${table.serviceName};
 import ${superServiceImplClassPackage};
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;

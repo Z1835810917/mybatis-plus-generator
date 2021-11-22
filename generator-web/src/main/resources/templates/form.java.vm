@@ -1,4 +1,4 @@
-package ${parentName}.form.${moduleName};
+package ${parentName}.form.${modulePageName};
 #foreach($pkg in ${table.importPackages})
 import ${pkg};
 #end

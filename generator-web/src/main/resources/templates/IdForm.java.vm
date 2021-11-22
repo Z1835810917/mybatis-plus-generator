@@ -1,4 +1,4 @@
-package ${parentName}.form.${moduleName};
+package ${parentName}.form.${modulePageName};
 
 #if(${swagger})
 import io.swagger.annotations.ApiModel;

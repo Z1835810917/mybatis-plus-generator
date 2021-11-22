@@ -28,7 +28,7 @@ import springfox.documentation.annotations.ApiIgnore;
 public class GeneratorCodeController {
 
 
-	private static final String dataUrl = "jdbc:mysql://172.19.70.38:3306/supdb?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC";
+	private static final String dataUrl = "jdbc:mysql://172.19.70.38:3306/%s?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC";
 	private static final String userName = "root";
 	private static final String password = "123456";
 
@@ -43,7 +43,7 @@ public class GeneratorCodeController {
 	public void generatorCode(@RequestBody GeneratorCreateVO generatorCreateVO) throws Exception {
 		//数据库配置
 		DataSourceEntity dataSourceEntity = new DataSourceEntity();
-		dataSourceEntity.setDataUrl(dataUrl)
+		dataSourceEntity.setDataUrl(String.format(dataUrl, generatorCreateVO.getSchemaName()))
 				.setUserName(userName)
 				.setSchemaName(generatorCreateVO.getSchemaName())
 				.setPassword(password);
@@ -82,7 +82,7 @@ public class GeneratorCodeController {
 		String outputDir = generatorCreateVO.getOutputDir();
 		//数据库配置
 		DataSourceEntity dataSourceEntity = new DataSourceEntity();
-		dataSourceEntity.setDataUrl(dataUrl)
+		dataSourceEntity.setDataUrl(String.format(dataUrl, generatorCreateVO.getSchemaName()))
 				.setUserName(userName)
 				.setSchemaName(generatorCreateVO.getSchemaName())
 				.setPassword(password);
@@ -93,16 +93,16 @@ public class GeneratorCodeController {
 				.setSwagger(true);
 		//包名配置
 		PackageEntity packageEntity = new PackageEntity();
-		packageEntity.setModuleName(generatorCreateVO.getModuleName().toUpperCase())
+		packageEntity.setModuleName(generatorCreateVO.getModuleName().toLowerCase())
 				.setParentName(generatorCreateVO.getMainPath());
 		String mainPageName = generatorCreateVO.getMainPageName();
 		PackageEntity.PackageInfo packageInfo = new PackageEntity.PackageInfo();
 		packageInfo.setMapperXmlUrl(outputDir + "/" + mainPageName + "-mapper" + "/src/main/resources");
-		packageInfo.setControllerUrl(outputDir + "/" + mainPageName + "-web" + MybatisConstant.JAVA_PATH);
+		packageInfo.setControllerUrl(outputDir + "/" + mainPageName + "-web1" + MybatisConstant.JAVA_PATH);
 		packageInfo.setEntityUrl(outputDir + "/" + mainPageName + "-mapper" + MybatisConstant.JAVA_PATH);
 		packageInfo.setServiceUrl(outputDir + "/" + mainPageName + "-service" + MybatisConstant.JAVA_PATH);
-		packageInfo.setMapperUrl(outputDir + "/" + mainPageName + "-mapper" +  MybatisConstant.JAVA_PATH);
-		packageInfo.setServiceImplUrl(outputDir + "/" + mainPageName + "-service" +  MybatisConstant.JAVA_PATH);
+		packageInfo.setMapperUrl(outputDir + "/" + mainPageName + "-mapper" + MybatisConstant.JAVA_PATH);
+		packageInfo.setServiceImplUrl(outputDir + "/" + mainPageName + "-service" + MybatisConstant.JAVA_PATH);
 		//策略配置
 		StrategyEntity strategyEntity = new StrategyEntity();
 		strategyEntity.setTableName(generatorCreateVO.getTableName())
@@ -113,7 +113,7 @@ public class GeneratorCodeController {
 		generator.global(globalEntity.getGlobalConfig());
 		generator.packageInfo(packageEntity.getPageConfig(packageInfo));
 		generator.template(TemplateEntity.getTemplateConfig());
-		generator.injection(InjectionEntity.getInjection(generatorCreateVO.getMainPath(), generatorCreateVO.getModuleName().toUpperCase()));
+		generator.injection(InjectionEntity.getInjection(generatorCreateVO.getMainPath(), generatorCreateVO.getModuleName()));
 		generator.execute(new CustomTemplateUrlEntity());
 	}
 }

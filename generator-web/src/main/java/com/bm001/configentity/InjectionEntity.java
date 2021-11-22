@@ -44,6 +44,7 @@ public class InjectionEntity {
 				.beforeOutputFile((tableInfo, objectMap) -> {
 					objectMap.put("caseModuleName" , caseModuleName);
 					objectMap.put("moduleName" , moduleName);
+					objectMap.put("modulePageName" , moduleName.toLowerCase());
 					log.info("tableInfo: " + tableInfo.getName() + " objectMap: " + objectMap.size());
 				})
 				.customFile(map)
