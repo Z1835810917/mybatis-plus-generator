@@ -73,7 +73,7 @@ public class ${table.controllerName} {
     @PostMapping("/page")
     @ApiOperation(value = "$!{table.comment}列表", notes = "分页查询")
     public ResponseEntity<IPage<$!{caseModuleName}VO>> page(@RequestBody $!{caseModuleName}Form $!{moduleName}form) {
-		QueryWrapper<${entity}> queryWrapper = WrapperUtil.entityToWrapper(testform, $!{caseModuleName}Query.class);
+		QueryWrapper<${entity}> queryWrapper = WrapperUtil.entityToWrapper($!{moduleName}form, $!{caseModuleName}Query.class);
 		//封装分页参数
 		Page<${entity}> pageForm = PageUtils.getPage($!{moduleName}form);
 		IPage<${entity}> page = $!{moduleName}Service.page(pageForm, queryWrapper);
@@ -84,16 +84,13 @@ public class ${table.controllerName} {
 	/**
 	 * $!{table.comment}信息
 	 *
-	 * @param id Id
+	 * @param $!{moduleName}IdForm Id
 	 * @return Result
 	 */
-	@GetMapping("/get")
+	@PostMapping("/get")
 	@ApiOperation(value = "$!{table.comment}信息", notes = "根据ID查询")
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "id", required = true, value = "ID", paramType = "form"),
-	})
-	public ResponseEntity<$!{caseModuleName}VO> get(@RequestParam String id) {
-		${entity} $!{table.entityPath} = $!{moduleName}Service.getById(id);
+	public ResponseEntity<$!{caseModuleName}VO> get(@RequestBody $!{caseModuleName}IdForm $!{moduleName}IdForm) {
+		${entity} $!{table.entityPath} = $!{moduleName}Service.getById($!{moduleName}IdForm.getId());
 		$!{caseModuleName}VO $!{moduleName}vo =CopyUtil.transfer($!{table.entityPath},$!{caseModuleName}VO.class);
 		return ResUtil.getSuccessResult($!{moduleName}vo);
 	}
@@ -134,7 +131,7 @@ public class ${table.controllerName} {
 	@PostMapping("/del")
 	@ApiOperation(value = "$!{table.comment}删除", notes = "$!{table.comment}删除")
 	public ResponseEntity del(@RequestBody $!{caseModuleName}IdForm $!{moduleName}IdForm) {
-		boolean save = testService.removeById($!{moduleName}IdForm.getId());
+		boolean save = $!{moduleName}Service.removeById($!{moduleName}IdForm.getId());
 		return ResUtil.getSuccessResult(save);
 	}
 

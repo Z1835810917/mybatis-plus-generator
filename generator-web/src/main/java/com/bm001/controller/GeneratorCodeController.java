@@ -93,7 +93,7 @@ public class GeneratorCodeController {
 				.setSwagger(true);
 		//包名配置
 		PackageEntity packageEntity = new PackageEntity();
-		packageEntity.setModuleName(generatorCreateVO.getModuleName())
+		packageEntity.setModuleName(generatorCreateVO.getModuleName().toUpperCase())
 				.setParentName(generatorCreateVO.getMainPath());
 		String mainPageName = generatorCreateVO.getMainPageName();
 		PackageEntity.PackageInfo packageInfo = new PackageEntity.PackageInfo();
@@ -113,7 +113,7 @@ public class GeneratorCodeController {
 		generator.global(globalEntity.getGlobalConfig());
 		generator.packageInfo(packageEntity.getPageConfig(packageInfo));
 		generator.template(TemplateEntity.getTemplateConfig());
-		generator.injection(InjectionEntity.getInjection(generatorCreateVO.getMainPath(), generatorCreateVO.getModuleName()));
+		generator.injection(InjectionEntity.getInjection(generatorCreateVO.getMainPath(), generatorCreateVO.getModuleName().toUpperCase()));
 		generator.execute(new CustomTemplateUrlEntity());
 	}
 }

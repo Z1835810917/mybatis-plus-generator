@@ -11,6 +11,7 @@ import lombok.experimental.Accessors;
 import com.bm001.entity.BaseQuery;
 import com.bm001.annotation.QueryField;
 import java.util.List;
+import java.util.Date;
 #end
 
 /**

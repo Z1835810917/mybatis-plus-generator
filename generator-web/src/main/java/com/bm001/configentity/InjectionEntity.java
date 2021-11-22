@@ -38,8 +38,6 @@ public class InjectionEntity {
 		maps.put("operatingVoPageName" , caseModuleName + MybatisConstant.PROJECT_OPERATING_VO);
 		maps.put("queryPageName" , caseModuleName + MybatisConstant.PROJECT_QUERY);
 		maps.put("idFormPageName" , caseModuleName + MybatisConstant.PROJECT_ID_FORM);
-		//模块名
-		maps.put("moduleName" , moduleName);
 		//包路径
 		maps.put("parentName" , parentName);
 		return new InjectionConfig.Builder()
