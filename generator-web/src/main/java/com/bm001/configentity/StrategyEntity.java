@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.bm001.entity.BaseBO;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author: cfn
@@ -36,8 +37,10 @@ public class StrategyEntity {
 				.enableCapitalMode()
 				.enableSkipView()
 				.disableSqlFilter()
-				.addInclude(tableName)
-				.addTablePrefix(tablePrefix);
+				.addInclude(tableName);
+		if(StringUtils.isNotBlank(this.getTablePrefix())){
+			builder.addTablePrefix(this.getTablePrefix());
+		}
 		getEntity(builder);
 		getController(builder);
 		getService(builder);
