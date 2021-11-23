@@ -36,7 +36,7 @@ import javax.validation.constraints.NotNull;
 #if(${swagger})
 @ApiModel(value = "id对象", description = "$!{table.comment}")
 #end
-public class ${idFormPageName} extends BaseForm{
+public class ${idFormPageName} {
 
 ## ----------  BEGIN 字段循环遍历  ----------
 #foreach($field in ${table.fields})
