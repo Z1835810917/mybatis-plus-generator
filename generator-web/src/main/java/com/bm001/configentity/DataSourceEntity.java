@@ -53,7 +53,7 @@ public class DataSourceEntity {
 					public DbColumnType processTypeConvert(GlobalConfig globalConfig, String fieldType) {
 						//将数据库中datetime转换成date
 						if (fieldType.toLowerCase().contains("datetime")) {
-							return DbColumnType.LOCAL_DATE_TIME;
+							return DbColumnType.DATE;
 						}
 						return (DbColumnType) super.processTypeConvert(globalConfig, fieldType);
 					}

@@ -36,16 +36,19 @@ public class ${voPageName} {
 
 ## ----------  BEGIN 字段循环遍历  ----------
 #foreach($field in ${table.fields})
-
-    #if("$!field.comment" != "")
-	/**
-	 * ${field.comment}
-	 */
+    #if(${field.propertyName} =="deleteAt")
+    #else
+#if("$!field.comment" != "")
+    /**
+     * ${field.comment}
+     */
     #if(${swagger})
     @ApiModelProperty("${field.comment}")
     #end
+#end
+	private ${field.propertyType} ${field.propertyName};
     #end
-    private ${field.propertyType} ${field.propertyName};
+
 #end
 ## ----------  END 字段循环遍历  ----------
 

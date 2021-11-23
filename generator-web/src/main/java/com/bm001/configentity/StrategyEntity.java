@@ -86,7 +86,7 @@ public class StrategyEntity {
 				.columnNaming(NamingStrategy.underline_to_camel)
 				.idType(IdType.AUTO)
 				.addTableFills(tableFillList)
-				.formatFileName("%sBO");
+				.formatFileName("%sDO");
 		if(this.getBaseEntity()){
 			entityBuilder.superClass(BaseDO.class);
 		}

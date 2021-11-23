@@ -86,9 +86,9 @@ public class GeneratorCodeController {
 	 */
 	@ApiOperation(value = "生成mybatis-plus代码")
 	@PostMapping("/generatorCustomCode")
-	public void generatorCustomCode(@Validated @RequestBody GeneratorCustomCreateVO generatorCreateVO) throws Exception {
+	public String generatorCustomCode(@Validated @RequestBody GeneratorCustomCreateVO generatorCreateVO) throws Exception {
 		String outputDir = generatorCreateVO.getOutputDir();
-		String jdbc = "jdbc:mysql://"+generatorCreateVO.getDbUrl()+"/"+generatorCreateVO.getSchemaName()+"?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC";
+		String jdbc = "jdbc:mysql://" + generatorCreateVO.getDbUrl() + "/" + generatorCreateVO.getSchemaName() + "?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC";
 		//数据库配置
 		DataSourceEntity dataSourceEntity = new DataSourceEntity();
 		dataSourceEntity.setDataUrl(jdbc)
@@ -102,7 +102,13 @@ public class GeneratorCodeController {
 				.setSwagger(true);
 		//包名配置
 		String tableName = generatorCreateVO.getTableName();
-		String moduleName = tableName.substring(2);
+		int i = tableName.indexOf("_");
+		String moduleName;
+		if (i > -1) {
+			moduleName = tableName.substring(i + 1);
+		} else {
+			return "数据库表名不符合规范";
+		}
 		PackageEntity packageEntity = new PackageEntity();
 		packageEntity.setModuleName(lineToHump(moduleName).toLowerCase())
 				.setParentName(generatorCreateVO.getMainPath());
@@ -115,7 +121,7 @@ public class GeneratorCodeController {
 		packageInfo.setMapperUrl(outputDir + "/" + mainPageName + "-mapper" + MybatisConstant.JAVA_PATH);
 		packageInfo.setServiceImplUrl(outputDir + "/" + mainPageName + "-service" + MybatisConstant.JAVA_PATH);
 		//策略配置
-		String tablefix = tableName.substring(0,2);
+		String tablefix = tableName.substring(0, i + 1);
 		StrategyEntity strategyEntity = new StrategyEntity();
 		strategyEntity.setTableName(tableName)
 				.setTablePrefix(tablefix)
@@ -128,10 +134,13 @@ public class GeneratorCodeController {
 		generator.template(TemplateEntity.getTemplateConfig());
 		generator.injection(InjectionEntity.getInjection(generatorCreateVO.getMainPath(), lineToHump(moduleName)));
 		generator.execute(new CustomTemplateUrlEntity());
+		return "成功";
 	}
 
-	/** 下划线转驼峰 */
-	private  String lineToHump(String str) {
+	/**
+	 * 下划线转驼峰
+	 */
+	private String lineToHump(String str) {
 		str = str.toLowerCase();
 		Matcher matcher = linePattern.matcher(str);
 		StringBuffer sb = new StringBuffer();

@@ -39,7 +39,9 @@ public class ${operatingVoPageName} {
 
 ## ----------  BEGIN 字段循环遍历  ----------
 #foreach($field in ${table.fields})
+    #if(${field.propertyName} =="addTime"||${field.propertyName} =="optTime"||${field.propertyName} =="deleteAt")
 
+    #else
     #if("$!field.comment" != "")
 	/**
 	 * ${field.comment}
@@ -56,6 +58,7 @@ public class ${operatingVoPageName} {
     #end
     #end
     private ${field.propertyType} ${field.propertyName};
+    #end
 #end
 ## ----------  END 字段循环遍历  ----------
 
@@ -117,4 +120,4 @@ public String toString() {
 		"}";
 		}
 #end
-		}
+}
