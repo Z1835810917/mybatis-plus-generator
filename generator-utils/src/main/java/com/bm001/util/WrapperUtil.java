@@ -30,7 +30,8 @@ public class WrapperUtil {
      * @return
      * @throws Exception
      */
-    public static <T,Q extends BaseQuery> QueryWrapper<T> entityToWrapper(Object condition, Class<Q> qClass) throws Exception {
+    public static <T, Q extends BaseQuery> QueryWrapper<T> entityToWrapper(Object condition, Class<Q> qClass)
+        throws Exception {
         Q query = qClass.newInstance();
         // 转换bean
         BeanUtils.copyProperties(condition, query);
