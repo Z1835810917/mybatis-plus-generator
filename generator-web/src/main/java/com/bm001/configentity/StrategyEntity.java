@@ -70,8 +70,8 @@ public class StrategyEntity {
 		//添加填充字段
 		List<IFill> tableFillList =new ArrayList<>();
 		Column add= new Column("add_time", FieldFill.INSERT);
-		Column opt= new Column("opt_time", FieldFill.UPDATE);
-		Column deletd= new Column("delete_at", FieldFill.UPDATE);
+		Column opt= new Column("opt_time", FieldFill.INSERT_UPDATE);
+		Column deletd= new Column("delete_at", FieldFill.INSERT);
 		tableFillList.add(add);
 		tableFillList.add(opt);
 		tableFillList.add(deletd);

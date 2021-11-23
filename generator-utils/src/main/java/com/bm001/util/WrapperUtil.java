@@ -53,10 +53,10 @@ public class WrapperUtil {
                 // 注解转化为查询条件
                 switch (annotation.type()) {
                     case EQ:
-                        queryWrapper.eq(StringUtils.isNotBlank((CharSequence)obj), humpToLine(colName), obj);
+                        queryWrapper.eq(humpToLine(colName), obj);
                         break;
                     case LIKE:
-                        queryWrapper.like(StringUtils.isNotBlank((CharSequence)obj), humpToLine(colName), obj);
+                        queryWrapper.like(humpToLine(colName), obj);
                         break;
                     case LIST:
                         queryWrapper.in(CollectionUtil.isNotEmpty((List)obj), humpToLine(colName), (List)obj);

@@ -88,7 +88,7 @@ public class GeneratorCodeController {
 	@PostMapping("/generatorCustomCode")
 	public void generatorCustomCode(@Validated @RequestBody GeneratorCustomCreateVO generatorCreateVO) throws Exception {
 		String outputDir = generatorCreateVO.getOutputDir();
-		String jdbc = "jdbc:mysql:"+generatorCreateVO.getDbUrl()+"/"+generatorCreateVO.getSchemaName()+"?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC";
+		String jdbc = "jdbc:mysql://"+generatorCreateVO.getDbUrl()+"/"+generatorCreateVO.getSchemaName()+"?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC";
 		//数据库配置
 		DataSourceEntity dataSourceEntity = new DataSourceEntity();
 		dataSourceEntity.setDataUrl(jdbc)
@@ -109,7 +109,7 @@ public class GeneratorCodeController {
 		String mainPageName = generatorCreateVO.getMainPageName();
 		PackageEntity.PackageInfo packageInfo = new PackageEntity.PackageInfo();
 		packageInfo.setMapperXmlUrl(outputDir + "/" + mainPageName + "-mapper" + "/src/main/resources");
-		packageInfo.setControllerUrl(outputDir + "/" + mainPageName + "-web" + MybatisConstant.JAVA_PATH);
+		packageInfo.setControllerUrl(outputDir + "/" + mainPageName + "-web1" + MybatisConstant.JAVA_PATH);
 		packageInfo.setEntityUrl(outputDir + "/" + mainPageName + "-mapper" + MybatisConstant.JAVA_PATH);
 		packageInfo.setServiceUrl(outputDir + "/" + mainPageName + "-service" + MybatisConstant.JAVA_PATH);
 		packageInfo.setMapperUrl(outputDir + "/" + mainPageName + "-mapper" + MybatisConstant.JAVA_PATH);
@@ -126,7 +126,7 @@ public class GeneratorCodeController {
 		generator.global(globalEntity.getGlobalConfig());
 		generator.packageInfo(packageEntity.getPageConfig(packageInfo));
 		generator.template(TemplateEntity.getTemplateConfig());
-		generator.injection(InjectionEntity.getInjection(generatorCreateVO.getMainPath(), moduleName));
+		generator.injection(InjectionEntity.getInjection(generatorCreateVO.getMainPath(), lineToHump(moduleName)));
 		generator.execute(new CustomTemplateUrlEntity());
 	}
 
