@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.bm001.annotation.QueryField;
+import com.bm001.entity.BaseQuery;
 import org.springframework.beans.BeanUtils;
 
 import java.lang.reflect.Field;
@@ -29,8 +30,8 @@ public class WrapperUtil {
      * @return
      * @throws Exception
      */
-    public static <T> QueryWrapper<T> entityToWrapper(Object condition, Class<?> qClass) throws Exception {
-        Object query = qClass.newInstance();
+    public static <T,Q extends BaseQuery> QueryWrapper<T> entityToWrapper(Object condition, Class<Q> qClass) throws Exception {
+        Q query = qClass.newInstance();
         // 转换bean
         BeanUtils.copyProperties(condition, query);
         // 生成wrapper对象
@@ -43,7 +44,7 @@ public class WrapperUtil {
             String fieldName = field.getName();
             Object obj = field.get(query);
             QueryField annotation = field.getAnnotation(QueryField.class);
-            // 转化条件 1、Entity必须有值 2、必须有QueryField注解
+            // 转化条件 1、Entity必须有值 2、必须有QueryField注解 3、toString不能为空
             if (Objects.nonNull(obj) && Objects.nonNull(annotation) && StringUtils.isNotBlank(Objects.toString(obj))) {
                 String colName = annotation.value();
                 // 如果注解的value没有值，就把变量名赋值给colName，再转驼峰成为列名
