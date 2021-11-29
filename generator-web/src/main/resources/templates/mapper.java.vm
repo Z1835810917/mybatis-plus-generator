@@ -2,7 +2,7 @@ package ${parentName}.mapper.${modulePageName};
 
 import  ${parentName}.entity.${modulePageName}.${entity};
 import ${superMapperClassPackage};
-import org.mapstruct.Mapper;
+import org.apache.ibatis.annotations.Mapper;
 /**
  * <p>
  * $!{table.comment} Mapper 接口
