@@ -3,10 +3,6 @@ package ${parentName}.entity.${modulePageName};
 #foreach($pkg in ${table.importPackages})
 import ${pkg};
 #end
-#if(${swagger})
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-#end
 #if(${entityLombokModel})
 import lombok.Getter;
 import lombok.Setter;

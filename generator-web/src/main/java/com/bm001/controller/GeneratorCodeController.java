@@ -115,7 +115,7 @@ public class GeneratorCodeController {
 		String mainPageName = generatorCreateVO.getMainPageName();
 		PackageEntity.PackageInfo packageInfo = new PackageEntity.PackageInfo();
 		packageInfo.setMapperXmlUrl(outputDir + "/" + mainPageName + "-mapper" + "/src/main/resources");
-		packageInfo.setControllerUrl(outputDir + "/" + mainPageName + "-web1" + MybatisConstant.JAVA_PATH);
+		packageInfo.setControllerUrl(outputDir + "/" + mainPageName + "-web" + MybatisConstant.JAVA_PATH);
 		packageInfo.setEntityUrl(outputDir + "/" + mainPageName + "-mapper" + MybatisConstant.JAVA_PATH);
 		packageInfo.setServiceUrl(outputDir + "/" + mainPageName + "-service" + MybatisConstant.JAVA_PATH);
 		packageInfo.setMapperUrl(outputDir + "/" + mainPageName + "-mapper" + MybatisConstant.JAVA_PATH);
