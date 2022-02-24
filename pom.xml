@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.bm001</groupId>
+    <groupId>com.thunder</groupId>
     <artifactId>mybatis-plus-generator</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>mybatis-plus-generator</name>
@@ -31,12 +31,7 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.qianmi</groupId>
-                <artifactId>bm-center-base</artifactId>
-                <version>${base.center.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.bm001</groupId>
+                <groupId>com.thunder</groupId>
                 <artifactId>generator-utils</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -87,19 +82,4 @@
         </dependencies>
     </dependencyManagement>
 
-    <repositories>
-        <repository>
-            <id>public</id>
-            <url>http://nexus.dev.qianmi.com/nexus/content/groups/public</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>public</id>
-            <url>http://nexus.dev.qianmi.com/nexus/content/groups/public</url>
-        </pluginRepository>
-    </pluginRepositories>
 </project>

@@ -8,8 +8,8 @@ import lombok.Setter;
 #if(${chainModel})
 import lombok.experimental.Accessors;
 #end
-import com.bm001.entity.BaseQuery;
-import com.bm001.annotation.QueryField;
+import com.thunder.entity.BaseQuery;
+import com.thunder.annotation.QueryField;
 import java.util.List;
 import java.util.Date;
 #end
