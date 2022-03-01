@@ -32,11 +32,11 @@ import java.util.regex.Pattern;
 public class GeneratorCodeController {
 
 
-	private static final String dataUrl = "jdbc:mysql://172.19.70.38:3306/%s?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC";
+	private static final String dataUrl = "jdbc:mysql://192.168.164.52:3306/%s?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC";
 
 	private static final String userName = "root";
 
-	private static final String password = "123456";
+	private static final String password = "root";
 
 	private static Pattern linePattern = Pattern.compile("_(\\w)");
 

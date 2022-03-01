@@ -26,21 +26,22 @@ public class CustomTemplateUrlEntity extends VelocityTemplateEngine {
 	 */
 	@Override
 	protected void outputCustomFile(Map<String, String> customFile, TableInfo tableInfo, Map<String, Object> objectMap) {
+		String separator = File.separator;
 		//遍历输出
 		customFile.forEach((key, value) -> {
 			if (key.startsWith(MybatisConstant.PROJECT_VO, key.length() - 7)) {
 				//基础的vo路径
-				String voUrl = StringUtils.replace(getPathInfo(OutputFile.controller), "/controller/", "/vo/");
+				String voUrl = StringUtils.replace(getPathInfo(OutputFile.controller), separator + "controller" + separator, separator + "vo" + separator);
 				String fileName = String.format((voUrl + File.separator + File.separator + "%s"), key);
 				outputFile(new File(fileName), objectMap, value);
 			} else if (key.startsWith(MybatisConstant.PROJECT_FORM, key.length() - 9)) {
 				//基础的form路径
-				String formUrl = StringUtils.replace(getPathInfo(OutputFile.controller), "/controller/", "/form/");
+				String formUrl = StringUtils.replace(getPathInfo(OutputFile.controller), separator + "controller" + separator, separator + "form" + separator);
 				String fileName = String.format((formUrl + File.separator + File.separator + "%s"), key);
 				outputFile(new File(fileName), objectMap, value);
 			} else if (key.startsWith(MybatisConstant.PROJECT_QUERY, key.length() - 10)) {
 				//基础query
-				String serviceUrl = StringUtils.replace(getPathInfo(OutputFile.service), "/service/", "/query/");
+				String serviceUrl = StringUtils.replace(getPathInfo(OutputFile.service), separator + "service" + separator, separator + "query" + separator);
 				String fileName = String.format((serviceUrl + File.separator + File.separator + "%s"), key);
 				outputFile(new File(fileName), objectMap, value);
 			}

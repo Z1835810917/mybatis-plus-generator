@@ -22,7 +22,7 @@ public class Knife4jConfiguration {
 	public Docket defaultApi2() {
 		Docket docket=new Docket(DocumentationType.SWAGGER_2)
 				.apiInfo(new ApiInfoBuilder()
-						.description("# 斑马mybatis-plus自动生成代码")
+						.description("#mybatis-plus自动生成代码")
 						.termsOfServiceUrl("http://www.xx.com/")
 						.version("1.0")
 						.build())
