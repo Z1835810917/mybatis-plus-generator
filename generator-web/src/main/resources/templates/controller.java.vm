@@ -10,7 +10,7 @@ import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.bm.center.base.util.ResUtil;
+import com.bm.center.base.util.Result;
 import com.bm.center.base.util.CopyUtil;
 import com.bm.center.base.response.Result;
 import com.thunder.util.PageUtils;
@@ -92,7 +92,7 @@ public class ${table.controllerName} {
 	public Result<$!{caseModuleName}VO> get(@RequestBody $!{caseModuleName}IdForm $!{moduleName}IdForm) {
 		${entity} $!{table.entityPath} = $!{moduleName}Service.getById($!{moduleName}IdForm.getId());
 		$!{caseModuleName}VO $!{moduleName}vo =CopyUtil.transfer($!{table.entityPath},$!{caseModuleName}VO.class);
-		return ResUtil.success($!{moduleName}vo);
+		return Result.success($!{moduleName}vo);
 	}
 
 	/**
@@ -106,7 +106,7 @@ public class ${table.controllerName} {
 	public Result add(@Validated() @RequestBody $!{caseModuleName}SaveForm $!{moduleName}saveForm) {
 		${entity} $!{table.entityPath} =CopyUtil.transfer($!{moduleName}saveForm , ${entity}.class);
 		boolean save = $!{moduleName}Service.save($!{table.entityPath});
-		return ResUtil.success(save);
+		return Result.success(save);
 	}
 
 	/**
@@ -120,7 +120,7 @@ public class ${table.controllerName} {
 	public Result update(@Validated(UpdateAction.class) @RequestBody $!{caseModuleName}SaveForm $!{moduleName}saveForm ) {
 		${entity} $!{table.entityPath} =CopyUtil.transfer($!{moduleName}saveForm , ${entity}.class);
 		boolean save = $!{moduleName}Service.updateById($!{table.entityPath});
-		return ResUtil.success(save);
+		return Result.success(save);
 	}
 	/**
 	 * $!{table.comment}删除
@@ -132,7 +132,7 @@ public class ${table.controllerName} {
 	@ApiOperation(value = "$!{table.comment}删除", notes = "$!{table.comment}删除")
 	public Result del(@RequestBody $!{caseModuleName}IdForm $!{moduleName}IdForm) {
 		boolean save = $!{moduleName}Service.removeById($!{moduleName}IdForm.getId());
-		return ResUtil.success(save);
+		return Result.success(save);
 	}
 
 }
