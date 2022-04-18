@@ -12,7 +12,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.bm.center.base.util.ResUtil;
 import com.bm.center.base.util.CopyUtil;
-import com.bm.center.base.response.ResponseEntity;
+import com.bm.center.base.response.Result;
 import com.thunder.util.PageUtils;
 import com.thunder.util.CopyMybatisUtils;
 import com.thunder.util.WrapperUtil;
@@ -72,13 +72,13 @@ public class ${table.controllerName} {
     @SneakyThrows
     @PostMapping("/page")
     @ApiOperation(value = "$!{table.comment}列表", notes = "分页查询")
-    public ResponseEntity<IPage<$!{caseModuleName}VO>> page(@RequestBody $!{caseModuleName}Form $!{moduleName}form) {
+    public PageResult<$!{caseModuleName}VO> page(@RequestBody $!{caseModuleName}Form $!{moduleName}form) {
 		QueryWrapper<${entity}> queryWrapper = WrapperUtil.entityToWrapper($!{moduleName}form, $!{caseModuleName}Query.class);
 		//封装分页参数
 		Page<${entity}> pageForm = PageUtils.getPage($!{moduleName}form);
 		IPage<${entity}> page = $!{moduleName}Service.page(pageForm, queryWrapper);
 		IPage<$!{caseModuleName}VO> pageVo = CopyMybatisUtils.transfer(page,$!{caseModuleName}VO.class);
-		return ResUtil.getSuccessResult(pageVo);
+		return PageResult.success(pageVo);
     }
 
 	/**
@@ -89,10 +89,10 @@ public class ${table.controllerName} {
 	 */
 	@PostMapping("/get")
 	@ApiOperation(value = "$!{table.comment}信息", notes = "根据ID查询")
-	public ResponseEntity<$!{caseModuleName}VO> get(@RequestBody $!{caseModuleName}IdForm $!{moduleName}IdForm) {
+	public Result<$!{caseModuleName}VO> get(@RequestBody $!{caseModuleName}IdForm $!{moduleName}IdForm) {
 		${entity} $!{table.entityPath} = $!{moduleName}Service.getById($!{moduleName}IdForm.getId());
 		$!{caseModuleName}VO $!{moduleName}vo =CopyUtil.transfer($!{table.entityPath},$!{caseModuleName}VO.class);
-		return ResUtil.getSuccessResult($!{moduleName}vo);
+		return ResUtil.success($!{moduleName}vo);
 	}
 
 	/**
@@ -103,10 +103,10 @@ public class ${table.controllerName} {
 	 */
 	@PostMapping("/add")
 	@ApiOperation(value = "$!{table.comment}新增", notes = "$!{table.comment}新增")
-	public ResponseEntity add(@Validated() @RequestBody $!{caseModuleName}SaveForm $!{moduleName}saveForm) {
+	public Result add(@Validated() @RequestBody $!{caseModuleName}SaveForm $!{moduleName}saveForm) {
 		${entity} $!{table.entityPath} =CopyUtil.transfer($!{moduleName}saveForm , ${entity}.class);
 		boolean save = $!{moduleName}Service.save($!{table.entityPath});
-		return ResUtil.getSuccessResult(save);
+		return ResUtil.success(save);
 	}
 
 	/**
@@ -117,10 +117,10 @@ public class ${table.controllerName} {
 	 */
 	@PostMapping("/update")
 	@ApiOperation(value = "$!{table.comment}修改", notes = "$!{table.comment}修改")
-	public ResponseEntity update(@Validated(UpdateAction.class) @RequestBody $!{caseModuleName}SaveForm $!{moduleName}saveForm ) {
+	public Result update(@Validated(UpdateAction.class) @RequestBody $!{caseModuleName}SaveForm $!{moduleName}saveForm ) {
 		${entity} $!{table.entityPath} =CopyUtil.transfer($!{moduleName}saveForm , ${entity}.class);
 		boolean save = $!{moduleName}Service.updateById($!{table.entityPath});
-		return ResUtil.getSuccessResult(save);
+		return ResUtil.success(save);
 	}
 	/**
 	 * $!{table.comment}删除
@@ -130,9 +130,9 @@ public class ${table.controllerName} {
 	 */
 	@PostMapping("/del")
 	@ApiOperation(value = "$!{table.comment}删除", notes = "$!{table.comment}删除")
-	public ResponseEntity del(@RequestBody $!{caseModuleName}IdForm $!{moduleName}IdForm) {
+	public Result del(@RequestBody $!{caseModuleName}IdForm $!{moduleName}IdForm) {
 		boolean save = $!{moduleName}Service.removeById($!{moduleName}IdForm.getId());
-		return ResUtil.getSuccessResult(save);
+		return ResUtil.success(save);
 	}
 
 }
