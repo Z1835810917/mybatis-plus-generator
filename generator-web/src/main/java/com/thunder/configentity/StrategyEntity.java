@@ -69,9 +69,9 @@ public class StrategyEntity {
 	private StrategyConfig.Builder getEntity(StrategyConfig.Builder builder) {
 		//添加填充字段
 		List<IFill> tableFillList =new ArrayList<>();
-		Column add= new Column("add_time", FieldFill.INSERT);
-		Column opt= new Column("opt_time", FieldFill.INSERT_UPDATE);
-		Column deletd= new Column("delete_at", FieldFill.INSERT);
+		Column add= new Column("(create_time", FieldFill.INSERT);
+		Column opt= new Column("updateBy", FieldFill.INSERT_UPDATE);
+		Column deletd= new Column("delFlag", FieldFill.INSERT);
 		tableFillList.add(add);
 		tableFillList.add(opt);
 		tableFillList.add(deletd);
@@ -81,7 +81,7 @@ public class StrategyEntity {
 				.enableLombok()
 				.enableRemoveIsPrefix()
 				.enableTableFieldAnnotation()
-				.logicDeleteColumnName("delete_at")
+				.logicDeleteColumnName("delFlag")
 				.naming(NamingStrategy.underline_to_camel)
 				.columnNaming(NamingStrategy.underline_to_camel)
 				.idType(IdType.AUTO)
