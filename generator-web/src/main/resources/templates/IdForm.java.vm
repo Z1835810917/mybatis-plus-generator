@@ -39,19 +39,11 @@ import javax.validation.constraints.NotNull;
 public class ${idFormPageName} {
 
 ## ----------  BEGIN 字段循环遍历  ----------
-#foreach($field in ${table.fields})
-    #if("$!field.propertyName" == "id")
 	/**
      * id
      */
 	@ApiModelProperty(value = "id")
-#if($!{field.propertyType} == "String")
-    @NotBlank(message = "${field.comment}不能为空")
-#else
-    @NotNull(message = "${field.comment}不能为空")
-#end
+    @NotNull(message = "id不能为空")
 	private $!{field.propertyType} id;
-    #end
-#end
 ## ----------  END 字段循环遍历  ----------
 }

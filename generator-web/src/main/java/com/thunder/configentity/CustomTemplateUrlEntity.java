@@ -36,6 +36,7 @@ public class CustomTemplateUrlEntity extends VelocityTemplateEngine {
 				outputFile(new File(fileName), objectMap, value);
 			} else if (key.startsWith(MybatisConstant.PROJECT_FORM, key.length() - 9)) {
 				//基础的form路径
+				logger.info("1{}",tableInfo);
 				String formUrl = StringUtils.replace(getPathInfo(OutputFile.controller), separator + "controller" + separator, separator + "form" + separator);
 				String fileName = String.format((formUrl + File.separator + File.separator + "%s"), key);
 				outputFile(new File(fileName), objectMap, value);
