@@ -13,7 +13,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.bm.center.base.util.Result;
 import com.bm.center.base.util.CopyUtil;
 import com.bm.center.base.response.Result;
-import com.thunder.util.PageUtils;
+import com.thunder.util.PageUtil;
 import com.thunder.util.CopyMybatisUtils;
 import com.thunder.util.WrapperUtil;
 import org.springframework.validation.annotation.Validated;
@@ -75,7 +75,7 @@ public class ${table.controllerName} {
     public PageResult<$!{caseModuleName}VO> page(@RequestBody $!{caseModuleName}Form $!{moduleName}form) {
 		QueryWrapper<${entity}> queryWrapper = WrapperUtil.entityToWrapper($!{moduleName}form, $!{caseModuleName}Query.class);
 		//封装分页参数
-		Page<${entity}> pageForm = PageUtils.getPage($!{moduleName}form);
+		Page<${entity}> pageForm = PageUtil.getPage($!{moduleName}form);
 		IPage<${entity}> page = $!{moduleName}Service.page(pageForm, queryWrapper);
 		IPage<$!{caseModuleName}VO> pageVo = CopyMybatisUtils.transfer(page,$!{caseModuleName}VO.class);
 		return PageResult.success(pageVo);
