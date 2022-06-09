@@ -39,7 +39,7 @@ public class ${operatingVoPageName} {
 
 ## ----------  BEGIN 字段循环遍历  ----------
 #foreach($field in ${table.fields})
-    #if(${field.propertyName} =="addTime"||${field.propertyName} =="optTime"||${field.propertyName} =="deleteAt")
+    #if(${field.propertyName} =="createTime"||${field.propertyName} =="updateTime"||${field.propertyName} =="isDelete")
 
     #else
     #if("$!field.comment" != "")
